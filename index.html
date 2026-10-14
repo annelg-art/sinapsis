@@ -1,0 +1,1362 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SINAPSIS | Marketing que piensa como tu cliente</title>
+<meta name="description" content="SINAPSIS genera estrategias, landing pages y campañas con IA y neurociencia. En minutos, no semanas. Código abierto y gratis.">
+<meta name="author" content="SINAPSIS">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://sinapsis.mx/">
+<meta name="theme-color" content="#070b16">
+<!-- Seguridad: no filtrar URLs/tokenes vía Referer -->
+<meta name="referrer" content="no-referrer">
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SINAPSIS">
+<meta property="og:title" content="SINAPSIS | Marketing que piensa como tu cliente">
+<meta property="og:description" content="Estrategias, landings y campañas generadas con IA y neurociencia.">
+<meta property="og:image" content="https://sinapsis.mx/og-image.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SINAPSIS | Marketing que piensa como tu cliente">
+<meta name="twitter:description" content="Estrategias, landings y campañas generadas con IA y neurociencia.">
+<meta name="twitter:image" content="https://sinapsis.mx/og-image.svg">
+<!-- Favicon SVG inline (598 bytes, vs 2.4 MB de la referencia) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237C5CFF'/%3E%3Cstop offset='1' stop-color='%233EE6C4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%23070b16'/%3E%3Cpath d='M18 44c8-2 10-10 14-16s8-8 14-8' stroke='url(%23g)' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='18' cy='44' r='6' fill='url(%23g)'/%3E%3Ccircle cx='46' cy='20' r='6' fill='url(%23g)'/%3E%3Ccircle cx='32' cy='30' r='3.5' fill='%233EE6C4'/%3E%3C/svg%3E" type="image/svg+xml">
+<!--
+  CSP (demo single-file: requiere 'unsafe-inline' porque CSS/JS van inline.
+  Al separar en archivos, endurécelo con el _headers incluido para producción).
+-->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data: https://www.google.com; media-src 'self' blob: https:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://api.allorigins.win https://corsproxy.io https://api.codetabs.com https://generativelanguage.googleapis.com https://api.anthropic.com https://api.higgsfield.ai; upgrade-insecure-requests">
+<style>
+/* ============ SINAPSIS · design system ============ */
+:root{
+  --bg0:#05080f; --bg1:#0a1020; --card:#0e1526; --card2:#111a30;
+  --line:rgba(148,163,255,.14); --line2:rgba(148,163,255,.22);
+  --text:#eaf0ff; --muted:#9dabc9; --muted2:#6d7a99;
+  --violet:#7c5cff; --teal:#3ee6c4; --danger:#ff6b7a; --warn:#ffc857;
+  --grad:linear-gradient(135deg,#7c5cff 0%,#3ee6c4 100%);
+  --radius:16px; --radius-s:10px;
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --max:1140px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg0);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:rgba(124,92,255,.45)}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font:inherit;cursor:pointer;color:inherit}
+input{font:inherit;color:var(--text)}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--violet);color:#fff;padding:.6rem 1rem;border-radius:8px;z-index:200}
+.skip:focus{left:8px}
+/* fondo decorativo */
+.bg-decor{position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(600px 380px at 12% -4%,rgba(124,92,255,.22),transparent 60%),
+    radial-gradient(560px 360px at 88% 8%,rgba(62,230,196,.12),transparent 60%),
+    radial-gradient(700px 500px at 50% 110%,rgba(124,92,255,.12),transparent 60%),var(--bg0)}
+.bg-grid{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(148,163,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,255,.05) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 75%)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 1.25rem}
+/* ============ header ============ */
+header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:rgba(5,8,15,.72);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.scrolled{border-bottom-color:var(--line);box-shadow:0 8px 30px rgba(0,0,0,.35)}
+.nav{display:flex;align-items:center;gap:1.5rem;height:68px}
+.brand{display:flex;align-items:center;gap:.6rem;font-weight:800;letter-spacing:.14em;font-size:1.02rem}
+.brand svg{width:32px;height:32px}
+.brand small{display:block;font-size:.6rem;letter-spacing:.28em;color:var(--teal);font-weight:600}
+.nav-links{display:flex;gap:1.4rem;margin-left:auto;font-size:.95rem;color:var(--muted)}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{display:flex;gap:.6rem;margin-left:.4rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border:1px solid transparent;
+  padding:.65rem 1.25rem;border-radius:12px;font-weight:600;font-size:.95rem;transition:transform .15s,box-shadow .2s,background .2s,border-color .2s;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--grad);color:#06121a;box-shadow:0 6px 24px rgba(124,92,255,.35)}
+.btn-primary:hover{box-shadow:0 8px 32px rgba(62,230,196,.35);transform:translateY(-1px)}
+.btn-ghost{border-color:var(--line2);background:rgba(255,255,255,.03);color:var(--text)}
+.btn-ghost:hover{border-color:var(--violet);background:rgba(124,92,255,.12)}
+.btn-lg{padding:.9rem 1.8rem;font-size:1.02rem;border-radius:14px}
+.btn-sm{padding:.45rem .95rem;font-size:.85rem;border-radius:10px}
+.btn svg{width:18px;height:18px;flex:none}
+.menu-btn{display:none;background:none;border:1px solid var(--line2);border-radius:10px;padding:.5rem;line-height:0}
+/* ============ hero ============ */
+.hero{padding:4.5rem 0 3.5rem;text-align:center;position:relative}
+.badge{display:inline-flex;align-items:center;gap:.5rem;font-size:.82rem;font-weight:600;color:var(--teal);
+  border:1px solid rgba(62,230,196,.3);background:rgba(62,230,196,.08);padding:.4rem .95rem;border-radius:100px;margin-bottom:1.4rem}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.4}}
+h1{font-size:clamp(2.2rem,5.4vw,3.8rem);line-height:1.08;letter-spacing:-.02em;max-width:820px;margin:0 auto 1.2rem}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--muted);font-size:clamp(1rem,2vw,1.2rem);max-width:640px;margin:0 auto 2rem}
+.hero-cta{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem}
+.micro{font-size:.83rem;color:var(--muted2)}
+.hero-stats{display:flex;gap:2.2rem;justify-content:center;flex-wrap:wrap;margin:2.6rem 0 3rem}
+.stat b{display:block;font-size:1.7rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{font-size:.85rem;color:var(--muted)}
+/* mockup dashboard hero (SVG puro, 0 imágenes externas) */
+.mock{max-width:760px;margin:0 auto;position:relative}
+.mock-glow{position:absolute;inset:-30px;background:radial-gradient(ellipse at center,rgba(124,92,255,.3),transparent 65%);filter:blur(30px);z-index:-1}
+.mock-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line2);border-radius:20px;overflow:hidden;text-align:left;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.mock-bar{display:flex;gap:.45rem;padding:.9rem 1.1rem;border-bottom:1px solid var(--line);align-items:center}
+.mock-bar i{width:11px;height:11px;border-radius:50%;background:#2a3350}
+.mock-bar i:first-child{background:#ff5f57}.mock-bar i:nth-child(2){background:#febc2e}.mock-bar i:nth-child(3){background:#28c840}
+.mock-bar span{margin-left:.6rem;font-size:.75rem;color:var(--muted2);background:rgba(255,255,255,.04);padding:.2rem .8rem;border-radius:6px}
+.mock-body{padding:1.4rem;display:grid;gap:1rem}
+.mock-row{display:flex;gap:1rem;flex-wrap:wrap}
+.mock-kpi{flex:1;min-width:130px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem}
+.mock-kpi small{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}
+.mock-kpi b{display:block;font-size:1.35rem;margin-top:.15rem}
+.mock-kpi em{font-style:normal;font-size:.78rem;color:var(--teal)}
+.mock-chart{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:1rem}
+/* ============ secciones ============ */
+section{padding:3.5rem 0}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:.7rem}
+h2{font-size:clamp(1.6rem,3.4vw,2.4rem);letter-spacing:-.01em;margin-bottom:.7rem}
+.section-sub{color:var(--muted);max-width:620px;margin-bottom:2.2rem}
+.center{text-align:center}.center .section-sub{margin-left:auto;margin-right:auto}
+/* features */
+.grid{display:grid;gap:1rem}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));border:1px solid var(--line);
+  border-radius:var(--radius);padding:1.6rem;transition:transform .2s,border-color .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px);border-color:rgba(62,230,196,.4);box-shadow:0 18px 44px rgba(0,0,0,.4)}
+.card .icon{width:46px;height:46px;border-radius:13px;background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.3);
+  display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+.card .icon svg{width:23px;height:23px;color:var(--teal)}
+.card h3{font-size:1.08rem;margin-bottom:.45rem}
+.card p{color:var(--muted);font-size:.93rem}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;counter-reset:step}
+.step{position:relative;padding:1.6rem 1.6rem 1.6rem 4.6rem;background:var(--card);border:1px solid var(--line);border-radius:var(--radius)}
+.step::before{counter-increment:step;content:counter(step,decimal-leading-zero);position:absolute;left:1.4rem;top:1.2rem;
+  font-size:1.5rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.step h3{font-size:1.02rem;margin-bottom:.4rem}
+.step p{color:var(--muted);font-size:.9rem}
+/* pricing */
+/* testimonios */
+.quote-card{display:flex;flex-direction:column;gap:1rem}
+.stars{color:var(--warn);letter-spacing:.15em;font-size:.9rem}
+.quote-card p{font-size:.95rem}
+.quote-who{display:flex;align-items:center;gap:.8rem;margin-top:auto}
+.avatar{width:42px;height:42px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-weight:800;color:#06121a;flex:none}
+.quote-who small{display:block;color:var(--muted);font-size:.8rem}
+/* faq */
+details.faq{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:.7rem;overflow:hidden}
+details.faq summary{cursor:pointer;padding:1.1rem 1.3rem;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{content:"+";font-size:1.4rem;color:var(--teal);flex:none;transition:transform .2s}
+details.faq[open] summary::after{transform:rotate(45deg)}
+details.faq .a{padding:0 1.3rem 1.2rem;color:var(--muted);font-size:.93rem}
+.faq-wrap{max-width:720px;margin:0 auto}
+/* cta final */
+.cta-box{position:relative;overflow:hidden;text-align:center;background:linear-gradient(135deg,rgba(124,92,255,.2),rgba(62,230,196,.1));
+  border:1px solid rgba(62,230,196,.3);border-radius:24px;padding:3.5rem 2rem}
+.cta-box h2{margin-bottom:.6rem}
+/* footer */
+footer{border-top:1px solid var(--line);margin-top:2rem;padding:2.5rem 0 1.5rem;color:var(--muted);font-size:.88rem}
+.foot-grid{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.foot-brand{max-width:300px}
+.foot-brand p{font-size:.85rem;margin-top:.7rem}
+.foot-links{display:flex;gap:3rem;flex-wrap:wrap}
+.foot-links h4{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text);margin-bottom:.7rem}
+.foot-links ul{list-style:none;display:grid;gap:.45rem}
+.foot-links a:hover{color:var(--teal)}
+.foot-bottom{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:1.2rem;font-size:.8rem;color:var(--muted2)}
+/* ============ vistas SPA ============ */
+.view{display:none}
+.view.active{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* ============ auth ============ */
+.auth-wrap{max-width:960px;margin:0 auto;padding:3rem 0 4rem}
+.auth-card{display:grid;grid-template-columns:1fr 1.1fr;background:var(--card);border:1px solid var(--line2);border-radius:22px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.auth-side{background:linear-gradient(160deg,rgba(124,92,255,.25),rgba(62,230,196,.08));padding:2.5rem 2.2rem;display:flex;flex-direction:column;gap:1.2rem;border-right:1px solid var(--line)}
+.auth-side h2{font-size:1.5rem}
+.auth-side ul{list-style:none;display:grid;gap:.8rem;color:var(--muted);font-size:.92rem}
+.auth-side li{display:flex;gap:.6rem}
+.auth-side li svg{width:18px;height:18px;color:var(--teal);flex:none;margin-top:.2rem}
+.auth-side .mini-quote{margin-top:auto;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:12px;padding:1rem;font-size:.85rem;color:var(--muted)}
+.auth-form{padding:2.5rem 2.2rem}
+.tabs{display:flex;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px;padding:.3rem;margin-bottom:1.6rem}
+.tabs button{flex:1;background:none;border:none;padding:.65rem;border-radius:9px;font-weight:600;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--grad);color:#06121a}
+.field{margin-bottom:1.05rem}
+.field label{display:block;font-size:.85rem;font-weight:600;margin-bottom:.4rem}
+.field input{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--line2);border-radius:11px;padding:.75rem .95rem;transition:border-color .2s,box-shadow .2s}
+.field input:focus{outline:none;border-color:var(--violet);box-shadow:0 0 0 3px rgba(124,92,255,.2)}
+.field .hint{font-size:.78rem;color:var(--muted2);margin-top:.3rem}
+.field .error{font-size:.8rem;color:var(--danger);margin-top:.3rem;display:none}
+.field.invalid input{border-color:var(--danger)}
+.field.invalid .error{display:block}
+.pass-wrap{position:relative}
+.pass-wrap input{padding-right:3rem}
+.pass-toggle{position:absolute;right:.5rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);padding:.4rem;line-height:0}
+.pass-toggle:hover{color:var(--text)}
+.strength{height:5px;background:rgba(255,255,255,.08);border-radius:100px;margin-top:.5rem;overflow:hidden}
+.strength i{display:block;height:100%;width:0;border-radius:100px;background:var(--danger);transition:width .3s,background .3s}
+.strength-lbl{font-size:.76rem;color:var(--muted2);margin-top:.25rem}
+.row-between{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin:.2rem 0 1.2rem;font-size:.85rem;color:var(--muted)}
+.checkbox{display:flex;align-items:center;gap:.5rem;cursor:pointer}
+.checkbox input{accent-color:var(--teal);width:16px;height:16px}
+.link{color:var(--teal)}.link:hover{text-decoration:underline}
+.form-btn{width:100%;padding:.85rem;font-size:1rem}
+.form-btn[disabled]{opacity:.6;cursor:wait}
+.spinner{width:18px;height:18px;border:2px solid rgba(0,0,0,.25);border-top-color:#06121a;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.divider{display:flex;align-items:center;gap:.8rem;color:var(--muted2);font-size:.8rem;margin:1.3rem 0}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+.demo-note{background:rgba(62,230,196,.07);border:1px dashed rgba(62,230,196,.4);border-radius:12px;padding:.9rem 1rem;font-size:.83rem;color:var(--muted);margin-top:1.2rem}
+.demo-note b{color:var(--teal)}
+/* ============ app demo ============ */
+.app-top{display:flex;align-items:center;gap:1rem;padding:1.6rem 0;flex-wrap:wrap}
+.app-top h2{font-size:1.4rem;margin:0}
+.app-top .spacer{margin-left:auto;display:flex;gap:.6rem;align-items:center}
+.user-chip{display:flex;align-items:center;gap:.6rem;background:var(--card);border:1px solid var(--line2);padding:.4rem .9rem .4rem .4rem;border-radius:100px;font-size:.88rem}
+.user-chip .avatar{width:30px;height:30px;font-size:.8rem}
+.dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.2rem}
+.kpi small{color:var(--muted);font-size:.76rem;text-transform:uppercase;letter-spacing:.08em}
+.kpi b{display:block;font-size:1.8rem;margin:.2rem 0}
+.kpi em{font-style:normal;font-size:.8rem;color:var(--teal)}
+.app-panels{display:grid;grid-template-columns:1.2fr .8fr;gap:1rem;padding-bottom:3rem}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem}
+.panel h3{margin-bottom:1rem;font-size:1.05rem}
+.gen-steps{list-style:none;display:grid;gap:.7rem;margin:1rem 0;font-size:.9rem;color:var(--muted)}
+.gen-steps li{display:flex;gap:.7rem;align-items:center;opacity:.35;transition:opacity .3s}
+.gen-steps li.doing{opacity:1;color:var(--text)}
+.gen-steps li.done{opacity:1;color:var(--teal)}
+.gen-steps .st{width:22px;height:22px;border-radius:50%;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex:none}
+.gen-steps li.done .st{background:rgba(62,230,196,.15);border-color:var(--teal)}
+.gen-result{display:none;background:rgba(62,230,196,.06);border:1px solid rgba(62,230,196,.3);border-radius:12px;padding:1.1rem;font-size:.9rem;margin-top:1rem}
+.gen-result.show{display:block;animation:fade .4s}
+.gen-result b{color:var(--teal)}
+.proj-list{list-style:none;display:grid;gap:.7rem}
+.proj-list li{display:flex;align-items:center;gap:.8rem;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:11px;padding:.8rem 1rem;font-size:.9rem}
+.proj-list .dotp{width:9px;height:9px;border-radius:50%;background:var(--teal);flex:none}
+.proj-list small{margin-left:auto;color:var(--muted2)}
+.proj-add{display:flex;gap:.6rem;margin-top:1rem}
+.proj-add input{flex:1;background:rgba(255,255,255,.04);border:1px solid var(--line2);border-radius:10px;padding:.6rem .85rem;font-size:.88rem}
+/* ============ privacy ============ */
+.prose{max-width:760px;margin:0 auto;padding:3rem 0}
+.prose h2{margin-bottom:1rem}
+.prose h3{margin:1.8rem 0 .5rem;font-size:1.1rem}
+.prose p,.prose li{color:var(--muted);font-size:.95rem;margin-bottom:.7rem}
+.prose ul{padding-left:1.3rem}
+/* ============ cookies + toast ============ */
+.cookies{position:fixed;bottom:1rem;left:1rem;right:1rem;max-width:480px;z-index:100;background:var(--card2);
+  border:1px solid var(--line2);border-radius:16px;padding:1.2rem 1.3rem;box-shadow:0 20px 60px rgba(0,0,0,.6);
+  transform:translateY(140%);transition:transform .4s ease}
+.cookies.show{transform:none}
+.cookies p{font-size:.85rem;color:var(--muted);margin-bottom:.9rem}
+.cookies .row{display:flex;gap:.6rem}
+#toasts{position:fixed;top:80px;right:1rem;z-index:120;display:flex;flex-direction:column;gap:.6rem;max-width:min(360px,calc(100vw - 2rem))}
+.toast{background:var(--card2);border:1px solid var(--line2);border-left:4px solid var(--teal);border-radius:12px;
+  padding:.85rem 1rem;font-size:.88rem;box-shadow:0 14px 40px rgba(0,0,0,.5);animation:slidein .3s ease}
+.toast.err{border-left-color:var(--danger)}
+@keyframes slidein{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+.toast.out{opacity:0;transform:translateX(30px);transition:all .3s}
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:none}
+/* ============ IA real + open source ============ */
+.prov-tag{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#06121a;background:var(--teal);padding:.2rem .6rem;border-radius:100px;vertical-align:2px;margin-left:.35rem}
+.key-link{margin-top:.9rem;font-size:.88rem}
+.oss-strip{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;flex-wrap:wrap;margin-top:1.2rem;background:rgba(62,230,196,.05);border:1px dashed rgba(62,230,196,.4);border-radius:16px;padding:1.3rem 1.5rem}
+.ai-panel,.hf-panel{margin-bottom:1.5rem}
+.prov-row{display:flex;gap:.7rem;margin:1rem 0;flex-wrap:wrap}
+.prov-card{flex:1;min-width:200px;display:flex;flex-direction:column;gap:.15rem;background:rgba(255,255,255,.03);border:1px solid var(--line2);border-radius:13px;padding:.9rem 1.1rem;cursor:pointer;transition:border-color .2s,background .2s}
+.prov-card:hover{border-color:var(--violet)}
+.prov-card:has(input:checked){border-color:var(--teal);background:rgba(62,230,196,.07);box-shadow:0 0 0 1px var(--teal)}
+.prov-card input{position:absolute;opacity:0;pointer-events:none}
+.prov-card b{font-size:1rem}
+.prov-card span{font-size:.8rem;color:var(--muted)}
+.ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem}
+.ai-grid .field{margin-bottom:.9rem}
+.ai-panel select,.ai-panel textarea,.hf-panel select,.hf-panel textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--line2);border-radius:11px;padding:.75rem .95rem;color:var(--text);font:inherit}
+.ai-panel select:focus,.ai-panel textarea:focus,.hf-panel select:focus,.hf-panel textarea:focus{outline:none;border-color:var(--violet);box-shadow:0 0 0 3px rgba(124,92,255,.2)}
+.ai-panel textarea,.hf-panel textarea{resize:vertical;min-height:76px}
+.ai-panel select option,.hf-panel select option{background:#0e1526}
+.ai-badge{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.06);border:1px solid var(--line2);padding:.22rem .65rem;border-radius:100px;vertical-align:2px}
+.ai-badge.on{color:#06121a;background:var(--grad);border-color:transparent}
+.ai-flash{animation:aiflash 1.2s ease 2}
+@keyframes aiflash{0%,100%{box-shadow:none}50%{box-shadow:0 0 0 3px rgba(62,230,196,.6)}}
+.md{margin-top:.8rem;font-size:.9rem;line-height:1.65}
+.md h3{font-size:1rem;margin:1rem 0 .4rem;color:var(--teal)}
+.md h4{font-size:.92rem;margin:.9rem 0 .3rem;color:var(--text)}
+.md p{margin:.4rem 0;color:var(--muted)}
+.md ul,.md ol{margin:.4rem 0 .4rem 1.2rem;color:var(--muted);display:grid;gap:.3rem}
+.md b,.md strong{color:var(--text)}
+.md code{background:rgba(255,255,255,.08);padding:.1rem .4rem;border-radius:6px;font-size:.82rem}
+#hfResult video{width:100%;border-radius:12px;margin-top:1rem;background:#000;max-height:420px}
+#aiStatus,#hfStatus{align-self:center}
+/* responsive */
+@media (max-width:900px){
+  .grid-3,.steps{grid-template-columns:1fr 1fr}
+  .dash-grid{grid-template-columns:1fr 1fr}
+  .app-panels{grid-template-columns:1fr}
+  .auth-card{grid-template-columns:1fr}
+  .auth-side{border-right:none;border-bottom:1px solid var(--line)}
+}
+@media (max-width:640px){
+  .nav-links,.nav-cta{display:none}
+  .nav-links.open{display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;background:var(--bg1);
+    border-bottom:1px solid var(--line2);padding:1rem 1.25rem 1.4rem;gap:1rem;margin:0}
+  .menu-btn{display:block;margin-left:auto}
+  .grid-3,.grid-2,.steps{grid-template-columns:1fr}
+  .hero{padding:3rem 0 2.5rem}
+  section{padding:2.5rem 0}
+  .dash-grid{grid-template-columns:1fr 1fr}
+  .ai-grid{grid-template-columns:1fr}
+  .cookies{left:.7rem;right:.7rem;bottom:.7rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<div class="bg-decor" aria-hidden="true"></div>
+<div class="bg-grid" aria-hidden="true"></div>
+
+<!-- Iconos SVG reutilizables -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#3ee6c4"/>
+    </linearGradient>
+    <symbol id="i-logo" viewBox="0 0 64 64">
+      <rect width="64" height="64" rx="14" fill="#0a1020"/>
+      <path d="M18 44c8-2 10-10 14-16s8-8 14-8" stroke="url(#lg)" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <circle cx="18" cy="44" r="6" fill="url(#lg)"/><circle cx="46" cy="20" r="6" fill="url(#lg)"/><circle cx="32" cy="30" r="3.5" fill="#3ee6c4"/>
+    </symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.2 6.6L21 11l-6.8 2.4L12 20l-2.2-6.6L3 11l6.8-2.4z"/><path d="M19 15l.9 2.6L22.5 18.5l-2.6.9L19 22l-.9-2.6-2.6-.9 2.6-.9z"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></symbol>
+    <symbol id="i-mega" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l14-6v14L3 13v-2z"/><path d="M7 13.5V17a2 2 0 004 0v-2.2"/><path d="M18 8.5a4 4 0 010 5"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3.5"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v16a2 2 0 002 2h16"/><path d="M7 14l4-4 3 3 5-6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3.5v5.5c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V5.5z"/><path d="M9 12l2 2 4-4.5"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-eyeoff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3l18 18M10.5 5.2A10.8 10.8 0 0112 5c6.5 0 10 7 10 7a17 17 0 01-3.2 4M6.6 6.6A16 16 0 002 12s3.5 7 10 7a9.6 9.6 0 004.4-1.1"/><path d="M9.9 9.9a3 3 0 004.2 4.2"/></symbol>
+    <symbol id="i-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  </defs>
+</svg>
+
+<header id="header">
+  <div class="wrap nav">
+    <a class="brand" href="#/" aria-label="SINAPSIS inicio">
+      <svg aria-hidden="true"><use href="#i-logo"/></svg>
+      <span>SINAPSIS<small>NEURO · MARKETING · IA</small></span>
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Principal">
+      <a href="#features">Funciones</a>
+      <a href="#how">Cómo funciona</a>
+      <a href="#ia">IA real</a>
+      <a href="#faq">Preguntas</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost btn-sm" href="#/auth">Entrar</a>
+      <a class="btn btn-primary btn-sm" href="#/auth?tab=register">Usar gratis</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false">
+      <svg width="22" height="22" aria-hidden="true"><use href="#i-menu"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+<!-- ==================== VISTA: LANDING ==================== -->
+<div class="view" id="view-home">
+  <div class="wrap">
+    <div class="hero">
+      <span class="badge"><span class="dot"></span> Código abierto · IA real con tus llaves</span>
+      <h1>Marketing que <span class="grad-text">piensa como tu cliente</span></h1>
+      <p class="lead">SINAPSIS combina neurociencia e inteligencia artificial para crear tu estrategia, landing page y campañas en minutos — no en semanas.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="#/auth?tab=register">Crear mi estrategia gratis <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost btn-lg" href="#/app">Analizar mi web gratis</a>
+      </div>
+      <p class="micro">Gratis y código abierto · Sin planes ni mensualidades · Hecho en México</p>
+      <div class="hero-stats" role="list">
+        <div class="stat" role="listitem"><b>+2,400</b><span>estrategias generadas</span></div>
+        <div class="stat" role="listitem"><b>38%</b><span>conversión promedio extra</span></div>
+        <div class="stat" role="listitem"><b>4 min</b><span>de idea a campaña lista</span></div>
+      </div>
+      <div class="mock reveal" aria-hidden="true">
+        <div class="mock-glow"></div>
+        <div class="mock-card">
+          <div class="mock-bar"><i></i><i></i><i></i><span>panel.sinapsis.mx</span></div>
+          <div class="mock-body">
+            <div class="mock-row">
+              <div class="mock-kpi"><small>Estrategias</small><b>12</b><em>▲ +3 este mes</em></div>
+              <div class="mock-kpi"><small>Landings</small><b>5</b><em>▲ 2 publicadas</em></div>
+              <div class="mock-kpi"><small>Conversión</small><b>6.8%</b><em>▲ +1.2 pts</em></div>
+            </div>
+            <div class="mock-chart">
+              <svg viewBox="0 0 600 160" width="100%" height="130" role="img" aria-label="Gráfica de conversión al alza">
+                <defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3ee6c4" stop-opacity=".5"/><stop offset="1" stop-color="#3ee6c4" stop-opacity="0"/></linearGradient></defs>
+                <g stroke="rgba(148,163,255,.15)"><line x1="0" y1="40" x2="600" y2="40"/><line x1="0" y1="80" x2="600" y2="80"/><line x1="0" y1="120" x2="600" y2="120"/></g>
+                <path d="M0,130 C60,125 80,110 130,105 S210,95 260,80 S360,70 410,50 S520,35 600,15 L600,160 L0,160 Z" fill="url(#ag)"/>
+                <path d="M0,130 C60,125 80,110 130,105 S210,95 260,80 S360,70 410,50 S520,35 600,15" fill="none" stroke="url(#lg)" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="600" cy="15" r="5" fill="#3ee6c4"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="features">
+      <div class="center reveal">
+        <span class="eyebrow">Todo en uno</span>
+        <h2>De la idea a la venta, sin fricción</h2>
+        <p class="section-sub">Seis herramientas que trabajan juntas con el contexto de tu negocio. Sin copiar-pegar entre apps.</p>
+      </div>
+      <div class="grid grid-3">
+        <article class="card reveal"><div class="icon"><svg aria-hidden="true"><use href="#i-target"/></svg></div><h3>Estrategia neuro-persuasiva</h3><p>Diagnóstico de tu offerta con gatillos de instinto, emoción y razón. El brief que un consultor tardaría 2 semanas.</p></article>
+        <article class="card reveal"><div class="icon"><svg aria-hidden="true"><use href="#i-zap"/></svg></div><h3>Landing pages que venden</h3><p>Diseño, copy y botón de WhatsApp generados de tu estrategia. Publica con un clic en tu propio dominio.</p></article>
+        <article class="card reveal"><div class="icon"><svg aria-hidden="true"><use href="#i-mega"/></svg></div><h3>Campañas Meta Ads</h3><p>Segmento, presupuesto y creativos listos para lanzar. Se crean en pausa: tú decides cuándo activar.</p></article>
+        <article class="card reveal"><div class="icon"><svg aria-hidden="true"><use href="#i-mic"/></svg></div><h3>Agente de voz en vivo</h3><p>Un consultor por voz que responde dudas de tus clientes 24/7 desde tu landing o WhatsApp.</p></article>
+        <article class="card reveal"><div class="icon"><svg aria-hidden="true"><use href="#i-pen"/></svg></div><h3>Contenido para redes</h3><p>Carruseles virales, posts e imágenes con tu identidad visual. Calendario de 30 días en minutos.</p></article>
+        <article class="card reveal"><div class="icon"><svg aria-hidden="true"><use href="#i-chart"/></svg></div><h3>Analítica clara</h3><p>Qué funciona y qué ajustar, en español simple. Sin dashboards eternos que nadie entiende.</p></article>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="center reveal">
+        <span class="eyebrow">Cómo funciona</span>
+        <h2>Tres pasos. Cuatro minutos.</h2>
+        <p class="section-sub">Sin curva de aprendizaje. Si sabes describir tu negocio, sabes usar SINAPSIS.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><h3>Cuéntanos de tu negocio</h3><p>Responde 6 preguntas o pega la URL de tu web y la analizamos por ti.</p></div>
+        <div class="step reveal"><h3>La IA crea tu estrategia</h3><p>Posicionamiento, mensajes, oferta y plan de canales basados en neurociencia.</p></div>
+        <div class="step reveal"><h3>Lanza y vende</h3><p>Genera tu landing, contenido y campaña de anuncios con un clic.</p></div>
+      </div>
+    </section>
+
+    <section id="ia">
+      <div class="center reveal">
+        <span class="eyebrow">IA real · Código abierto</span>
+        <h2>Tres IAs. Tus llaves. Cero costo nuestro.</h2>
+        <p class="section-sub">SINAPSIS es gratis y open source (MIT). La inteligencia la pones tú con tus propias llaves de API: sin intermediarios, sin planes, sin sorpresas.</p>
+      </div>
+      <div class="grid grid-3">
+        <article class="card reveal"><div class="icon"><svg aria-hidden="true"><use href="#i-spark"/></svg></div><h3>Gemini <span class="prov-tag">Textos</span></h3><p>Estrategias, titulares y descripciones con el modelo Flash de Google. Rápido, capaz y con generoso nivel gratuito.</p><p class="key-link"><a class="link" href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Conseguir llave gratis →</a></p></article>
+        <article class="card reveal"><div class="icon"><svg aria-hidden="true"><use href="#i-pen"/></svg></div><h3>Claude <span class="prov-tag">Análisis</span></h3><p>Copy persuasivo y análisis profundo con el modelo Sonnet de Anthropic. Ideal cuando quieres máxima calidad.</p><p class="key-link"><a class="link" href="https://console.anthropic.com/" target="_blank" rel="noopener">Crear llave en Anthropic →</a></p></article>
+        <article class="card reveal"><div class="icon"><svg aria-hidden="true"><use href="#i-mega"/></svg></div><h3>Higgsfield <span class="prov-tag">Video</span></h3><p>Clips promocionales cinematográficos de tu negocio con modelos de video fronterizos. Funciona con saldo prepago.</p><p class="key-link"><a class="link" href="https://console.higgsfield.ai/" target="_blank" rel="noopener">Crear llave en Higgsfield →</a></p></article>
+      </div>
+      <div class="steps" style="margin-top:1rem">
+        <div class="step reveal"><h3>Consigue tu llave</h3><p>Gratis en Google AI Studio (Gemini), pago por uso en Anthropic (Claude) y saldo prepago en Higgsfield (video).</p></div>
+        <div class="step reveal"><h3>Pégala en el panel</h3><p>Se guarda solo en tu navegador. Tus llaves viajan directo a cada proveedor, nunca a nosotros.</p></div>
+        <div class="step reveal"><h3>Genera sin límites nuestros</h3><p>Estrategias con Gemini o Claude y videos con Higgsfield. Sin planes, sin mensualidades.</p></div>
+      </div>
+      <div class="oss-strip reveal">
+        <div><b>Código 100% abierto (licencia MIT).</b><br><span class="micro">Descárgalo, modifícalo, publícalo donde quieras. Sin telemetría, sin rastreadores, sin planes.</span></div>
+        <a class="btn btn-ghost" href="https://github.com/tu-usuario/sinapsis" target="_blank" rel="noopener">Ver código en GitHub</a>
+      </div>
+    </section>
+    <section id="testimonios">
+      <div class="center reveal">
+        <span class="eyebrow">Clientes</span>
+        <h2>Negocios que ya venden con SINAPSIS</h2>
+      </div>
+      <div class="grid grid-3">
+        <article class="card quote-card reveal"><div class="stars" aria-label="5 de 5 estrellas">★★★★★</div><p>“Lanzamos nuestra landing un viernes y el lunes ya teníamos 40 leads de WhatsApp. La estrategia le atinó al mensaje exacto.”</p><div class="quote-who"><span class="avatar" aria-hidden="true">M</span><div><b>Mariana Solís</b><small>Clínica dental · CDMX</small></div></div></article>
+        <article class="card quote-card reveal"><div class="stars" aria-label="5 de 5 estrellas">★★★★★</div><p>“El agente de voz contesta dudas a las 11pm cuando yo ya cerré. Cerré 3 ventas en la primera semana sin tocar el celular.”</p><div class="quote-who"><span class="avatar" aria-hidden="true">R</span><div><b>Rodrigo Páez</b><small>Inmobiliaria · Guadalajara</small></div></div></article>
+        <article class="card quote-card reveal"><div class="stars" aria-label="5 de 5 estrellas">★★★★★</div><p>“Dejé de pagar agencia. Con SINAPSIS saco estrategia, posts y anuncios para mis 4 sucursales yo sola, sin pagar agencia.”</p><div class="quote-who"><span class="avatar" aria-hidden="true">A</span><div><b>Alejandra Ríos</b><small>Repostería · Monterrey</small></div></div></article>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="center reveal">
+        <span class="eyebrow">Dudas</span>
+        <h2>Preguntas frecuentes</h2>
+      </div>
+      <div class="faq-wrap">
+        <details class="faq reveal"><summary>¿Necesito saber de marketing para usarlo?</summary><div class="a">No. Tú describes tu negocio con tus palabras y SINAPSIS traduce eso a estrategia, mensajes y campañas. Si sabes vender de frente, sabrás usar la plataforma.</div></details>
+        <details class="faq reveal"><summary>¿Mis datos y los de mis clientes están seguros?</summary><div class="a">Sí. Usamos cifrado en tránsito y en reposo, no vendemos datos y nunca compartimos tus enlaces privados con redes publicitarias. Puedes borrar tu cuenta y todo su contenido cuando quieras.</div></details>
+        <details class="faq reveal"><summary>¿Cuánto cuesta usar la IA real?</summary><div class="a">SINAPSIS es gratis y de código abierto. Solo pagas a cada proveedor por lo que uses: Gemini tiene un generoso nivel gratuito, Claude cobra centavos por estrategia y Higgsfield funciona con saldo prepago. Tú controlas tu gasto en cada consola.</div></details>
+        <details class="faq reveal"><summary>¿Funciona para mi giro de negocio?</summary><div class="a">Funciona mejor en negocios que venden por WhatsApp, llamada o cita: servicios, clínicas, inmobiliarias, educación, e-commerce y restaurantes, entre otros.</div></details>
+        <details class="faq reveal"><summary>¿Mis llaves de API están seguras?</summary><div class="a">Se guardan únicamente en tu navegador y viajan directo a cada proveedor (Google, Anthropic, Higgsfield). Nunca pasan por nuestros servidores, porque no tenemos servidores. No las pegues en computadoras ajenas y podrás borrarlas del panel cuando quieras.</div></details>
+      </div>
+    </section>
+
+    <section>
+      <div class="cta-box reveal">
+        <span class="eyebrow">Empieza hoy</span>
+        <h2>Tu próxima campaña, lista antes de comer</h2>
+        <p class="section-sub" style="margin-left:auto;margin-right:auto">Únete a +2,400 negocios que ya venden con neurociencia e IA.</p>
+        <a class="btn btn-primary btn-lg" href="#/auth?tab=register">Usar SINAPSIS gratis <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ==================== VISTA: AUTH ==================== -->
+<div class="view" id="view-auth">
+  <div class="wrap auth-wrap">
+    <div class="auth-card">
+      <aside class="auth-side">
+        <a class="brand" href="#/"><svg aria-hidden="true" width="32" height="32"><use href="#i-logo"/></svg><span>SINAPSIS<small>NEURO · MARKETING · IA</small></span></a>
+        <h2>Tu cerebro vende.<br>Nosotros lo escalamos.</h2>
+        <ul>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg> Estrategia lista en ~4 minutos</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg> Landing + WhatsApp incluidos</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg> IA real: Gemini, Claude y Higgsfield</li>
+          <li><svg aria-hidden="true"><use href="#i-shield"/></svg> Tus datos cifrados y privados</li>
+        </ul>
+        <div class="mini-quote">“Pasé de 0 a mi primera campaña en una tarde.” — Mariana S., CDMX</div>
+      </aside>
+      <div class="auth-form">
+        <div class="tabs" role="tablist" aria-label="Acceso">
+          <button id="tabLogin" role="tab" aria-selected="true" aria-controls="formLogin">Entrar</button>
+          <button id="tabRegister" role="tab" aria-selected="false" aria-controls="formRegister">Crear cuenta</button>
+        </div>
+        <!-- LOGIN -->
+        <form id="formLogin" role="tabpanel" novalidate autocomplete="on">
+          <div class="field" id="f-login-email">
+            <label for="loginEmail">Correo electrónico</label>
+            <input type="email" id="loginEmail" name="email" placeholder="tú@negocio.com" autocomplete="email" inputmode="email" required>
+            <p class="error">Escribe un correo válido.</p>
+          </div>
+          <div class="field" id="f-login-pass">
+            <label for="loginPass">Contraseña</label>
+            <div class="pass-wrap">
+              <input type="password" id="loginPass" name="password" placeholder="••••••••" autocomplete="current-password" minlength="8" required>
+              <button type="button" class="pass-toggle" data-for="loginPass" aria-label="Mostrar contraseña"><svg width="20" height="20" aria-hidden="true"><use href="#i-eye"/></svg></button>
+            </div>
+            <p class="error">Mínimo 8 caracteres.</p>
+          </div>
+          <div class="row-between">
+            <label class="checkbox"><input type="checkbox" id="remember" checked> Recuérdame</label>
+            <a class="link" href="#/auth" id="forgotLink">¿Olvidaste tu contraseña?</a>
+          </div>
+          <button class="btn btn-primary form-btn" type="submit" id="loginBtn">Entrar a mi panel</button>
+        </form>
+        <!-- REGISTRO -->
+        <form id="formRegister" role="tabpanel" novalidate hidden autocomplete="on">
+          <div class="field" id="f-reg-name">
+            <label for="regName">Tu nombre</label>
+            <input type="text" id="regName" name="name" placeholder="Ana García" autocomplete="name" minlength="2" required>
+            <p class="error">Escribe tu nombre.</p>
+          </div>
+          <div class="field" id="f-reg-email">
+            <label for="regEmail">Correo electrónico</label>
+            <input type="email" id="regEmail" name="email" placeholder="tú@negocio.com" autocomplete="email" inputmode="email" required>
+            <p class="error">Escribe un correo válido.</p>
+          </div>
+          <div class="field" id="f-reg-pass">
+            <label for="regPass">Crea una contraseña</label>
+            <div class="pass-wrap">
+              <input type="password" id="regPass" name="new-password" placeholder="Mínimo 8 caracteres" autocomplete="new-password" minlength="8" required>
+              <button type="button" class="pass-toggle" data-for="regPass" aria-label="Mostrar contraseña"><svg width="20" height="20" aria-hidden="true"><use href="#i-eye"/></svg></button>
+            </div>
+            <div class="strength" aria-hidden="true"><i id="strBar"></i></div>
+            <p class="strength-lbl" id="strLbl">Seguridad: —</p>
+            <p class="error">Mínimo 8 caracteres.</p>
+          </div>
+          <div class="row-between">
+            <label class="checkbox"><input type="checkbox" id="terms" required> Acepto los <a class="link" href="#/privacidad">términos y privacidad</a></label>
+          </div>
+          <button class="btn btn-primary form-btn" type="submit" id="regBtn">Crear cuenta gratis</button>
+        </form>
+        <div class="divider">o entra al instante</div>
+        <button class="btn btn-ghost form-btn" id="demoBtn" type="button"><svg aria-hidden="true"><use href="#i-zap"/></svg> Usar cuenta demo</button>
+        <div class="demo-note"><b>Modo local:</b> los datos se guardan solo en tu navegador (localStorage). Nada sale a internet. SINAPSIS es código abierto (MIT): nada se envía a servidores nuestros.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== VISTA: APP (demo) ==================== -->
+<div class="view" id="view-app">
+  <div class="wrap">
+    <div class="app-top">
+      <div>
+        <p class="micro" id="appDate">—</p>
+        <h2 id="appGreet">Hola 👋</h2>
+      </div>
+      <div class="spacer">
+        <span class="user-chip"><span class="avatar" id="appAvatar">?</span><span id="appEmail">demo</span></span>
+        <button class="btn btn-ghost btn-sm" id="logoutBtn"><svg aria-hidden="true"><use href="#i-out"/></svg> Salir</button>
+      </div>
+    </div>
+    <div class="dash-grid">
+      <div class="kpi"><small>Estrategias</small><b>12</b><em>▲ +3 este mes</em></div>
+      <div class="kpi"><small>Landings activas</small><b>5</b><em>▲ 2 publicadas</em></div>
+      <div class="kpi"><small>Leads (30 días)</small><b>318</b><em>▲ +24% vs anterior</em></div>
+      <div class="kpi"><small>Conversión</small><b>6.8%</b><em>▲ +1.2 pts</em></div>
+    </div>
+    <section class="panel analyzer" aria-label="Analizador de sitios web" id="analyzerPanel">
+      <div class="az-head">
+        <h3><svg width="20" height="20" aria-hidden="true" style="color:var(--teal)"><use href="#i-zap"/></svg> Analiza el sitio de cualquier empresa <span class="live-dot">EN VIVO</span></h3>
+        <p class="micro">Pega el link y SINAPSIS lo descarga, lo lee y lo califica con 16 chequeos de neuro-marketing. Todo ocurre en tu navegador, sin subir nada a ningún servidor.</p>
+      </div>
+      <div class="az-input-row">
+        <input id="siteUrl" type="url" inputmode="url" autocomplete="url" placeholder="ej: tusitio.com" aria-label="URL del sitio a analizar">
+        <button class="btn btn-primary" id="analyzeBtn" type="button">Analizar sitio</button>
+        <button class="btn btn-ghost" id="exampleBtn" type="button">Ver ejemplo</button>
+      </div>
+      <p class="az-status micro" id="azStatus" aria-live="polite" hidden></p>
+      <div class="az-progress" id="azProgress" hidden><i></i></div>
+      <div id="azResult" hidden></div>
+    </section>
+    <section class="panel ai-panel" aria-label="Configuración de IA real" id="aiPanel">
+      <div class="az-head">
+        <h3><svg width="20" height="20" aria-hidden="true" style="color:var(--teal)"><use href="#i-spark"/></svg> IA real con tus llaves <span class="live-dot">BYOK</span></h3>
+        <p class="micro">Elige proveedor, pega tu llave y genera estrategias redactadas por IA de verdad. Las llaves se guardan <b style="color:var(--teal)">solo en este navegador</b>.</p>
+      </div>
+      <div class="prov-row" role="radiogroup" aria-label="Proveedor de IA">
+        <label class="prov-card"><input type="radio" name="aiProv" value="gemini" checked><b>Gemini</b><span>Rápido · nivel gratis generoso</span></label>
+        <label class="prov-card"><input type="radio" name="aiProv" value="claude"><b>Claude</b><span>Análisis profundo · pago por uso</span></label>
+      </div>
+      <div class="ai-grid">
+        <div class="field"><label for="gemKey">Llave de Gemini <a class="link" href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">(gratis aquí)</a></label><input type="password" id="gemKey" placeholder="AIza…" autocomplete="off" spellcheck="false"></div>
+        <div class="field"><label for="gemModel">Modelo Gemini</label><input type="text" id="gemModel" value="gemini-3.8-flash" autocomplete="off" spellcheck="false"></div>
+        <div class="field"><label for="clKey">Llave de Claude <a class="link" href="https://console.anthropic.com/" target="_blank" rel="noopener">(console.anthropic.com)</a></label><input type="password" id="clKey" placeholder="sk-ant-…" autocomplete="off" spellcheck="false"></div>
+        <div class="field"><label for="clModel">Modelo Claude</label><input type="text" id="clModel" value="claude-sonnet-5-5" autocomplete="off" spellcheck="false"></div>
+      </div>
+      <div class="az-actions" style="margin-top:.2rem">
+        <button class="btn btn-primary btn-sm" id="aiSaveBtn" type="button">Guardar llaves</button>
+        <button class="btn btn-ghost btn-sm" id="aiTestBtn" type="button">Probar conexión</button>
+        <button class="btn btn-ghost btn-sm" id="aiClearBtn" type="button">Borrar llaves</button>
+        <span class="micro" id="aiStatus" aria-live="polite"></span>
+      </div>
+    </section>
+    <section class="panel hf-panel" aria-label="Generador de video con Higgsfield" id="hfPanel">
+      <div class="az-head">
+        <h3><svg width="20" height="20" aria-hidden="true" style="color:var(--teal)"><use href="#i-mega"/></svg> Video promo con Higgsfield <span class="live-dot">VIDEO IA</span></h3>
+        <p class="micro">Genera un clip cinematográfico de tu negocio. Necesitas saldo prepago en <a class="link" href="https://console.higgsfield.ai/" target="_blank" rel="noopener">console.higgsfield.ai</a> (cuesta centavos por video).</p>
+      </div>
+      <div class="ai-grid">
+        <div class="field"><label for="hfId">Higgsfield Key ID</label><input type="text" id="hfId" placeholder="tu HF_API_KEY_ID" autocomplete="off" spellcheck="false"></div>
+        <div class="field"><label for="hfSecret">Higgsfield Key Secret</label><input type="password" id="hfSecret" placeholder="tu HF_API_KEY_SECRET" autocomplete="off" spellcheck="false"></div>
+      </div>
+      <div class="ai-grid">
+        <div class="field"><label for="hfModel">Modelo (endpoint)</label><input type="text" id="hfModel" value="bytedance/seedance-2.0/text-to-video" autocomplete="off" spellcheck="false"></div>
+        <div class="field"><label for="hfAspect">Formato</label><select id="hfAspect"><option value="16:9">Horizontal 16:9</option><option value="9:16">Vertical 9:16 (reels/tiktok)</option><option value="1:1">Cuadrado 1:1</option></select></div>
+      </div>
+      <div class="field"><label for="hfPrompt">Describe tu video (en inglés funciona mejor)</label><textarea id="hfPrompt" rows="3" placeholder="Ej: Cinematic close-up of a smiling dentist with a happy patient, bright modern clinic, warm light"></textarea></div>
+      <div class="az-actions" style="margin-top:.2rem">
+        <button class="btn btn-primary btn-sm" id="hfGenBtn" type="button">Generar video</button>
+        <button class="btn btn-ghost btn-sm" id="hfFillBtn" type="button">Usar datos de mi sitio</button>
+        <span class="micro" id="hfStatus" aria-live="polite"></span>
+      </div>
+      <div class="az-progress" id="hfProgress" hidden><i></i></div>
+      <div id="hfResult" hidden></div>
+    </section>
+    <div class="app-panels">
+      <section class="panel" aria-label="Generador de estrategia demo">
+        <h3><svg width="20" height="20" aria-hidden="true" style="display:inline;vertical-align:-3px;color:var(--teal)"><use href="#i-spark"/></svg> Generar estrategia <span class="ai-badge" id="aiProvLbl">modo local</span></h3>
+        <p class="micro">Simula lo que hará la IA con tu negocio. En producción aquí se llamará a tu backend.</p>
+        <div class="proj-add" style="margin-top:.8rem">
+          <input id="bizInput" type="text" maxlength="80" placeholder="Ej: Clínica dental en CDMX para familias" aria-label="Describe tu negocio">
+          <button class="btn btn-primary btn-sm" id="genBtn" type="button">Generar</button><button class="btn btn-ghost btn-sm" id="genAiBtn" type="button"><svg aria-hidden="true"><use href="#i-spark"/></svg> IA real</button>
+        </div>
+        <ol class="gen-steps" id="genSteps" aria-live="polite">
+          <li data-s="0"><span class="st">1</span> Analizando tu negocio…</li>
+          <li data-s="1"><span class="st">2</span> Detectando gatillos de compra…</li>
+          <li data-s="2"><span class="st">3</span> Redactando mensajes y oferta…</li>
+          <li data-s="3"><span class="st">4</span> Armando plan de canales…</li>
+        </ol>
+        <div class="gen-result" id="genResult" role="status"></div>
+      </section>
+      <section class="panel" aria-label="Mis proyectos demo">
+        <h3>Mis proyectos</h3>
+        <ul class="proj-list" id="projList"></ul>
+        <div class="proj-add">
+          <input id="projInput" type="text" maxlength="60" placeholder="Nuevo proyecto…" aria-label="Nombre del proyecto">
+          <button class="btn btn-ghost btn-sm" id="projAdd" type="button" aria-label="Agregar proyecto"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
+        </div>
+        <div class="demo-note" style="margin-top:1rem"><b>Demo local:</b> tus proyectos viven en este navegador. Con Supabase se sincronizarían en la nube.</div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== VISTA: PRIVACIDAD ==================== -->
+<div class="view" id="view-privacy">
+  <div class="wrap prose">
+    <span class="eyebrow">Legal</span>
+    <h2>Aviso de privacidad (demo)</h2>
+    <p>Este es un texto de ejemplo para la demo de SINAPSIS. Antes de lanzar, pídele a tu abogado que lo adapte a la LFPDPPP (México) y a las leyes de cada país donde operes.</p>
+    <h3>1. Datos que recabamos</h3>
+    <p>En modo demo, todos los datos se almacenan exclusivamente en tu navegador (localStorage) y nunca salen de tu dispositivo. En producción recabaremos: nombre, correo, datos de tu negocio y uso de la plataforma para prestarte el servicio.</p>
+    <h3>2. Cookies y rastreo</h3>
+    <ul>
+      <li><b>Estrictamente necesarias:</b> sesión y preferencias (banner de cookies).</li>
+      <li><b>Analítica y marketing:</b> solo se activan si das tu consentimiento en el banner. Sin consentimiento, cero rastreadores de terceros.</li>
+      <li><b>Enlaces privados:</b> las URLs con tokens de sesión nunca se comparten con redes publicitarias (sin píxeles ni referers en esas pantallas).</li><li><b>Llaves de IA:</b> las que pegues (Gemini, Claude, Higgsfield) se guardan solo en tu navegador y se envían directo a cada proveedor. Puedes borrarlas en cualquier momento desde el panel.</li>
+    </ul>
+    <h3>3. Tus derechos ARCO</h3>
+    <p>Puedes acceder, rectificar, cancelar u oponerte al uso de tus datos escribiendo a <b>privacidad@sinapsis.mx</b>. En esta demo, usa “Salir” y borra los datos del sitio en tu navegador para eliminar todo.</p>
+    <h3>4. Contacto</h3>
+    <p>SINAPSIS Demo · Ciudad de México · hola@sinapsis.mx</p>
+    <p><a class="link" href="#/">← Volver al inicio</a></p>
+  </div>
+</div>
+</main>
+
+<footer id="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="#/"><svg aria-hidden="true"><use href="#i-logo"/></svg><span>SINAPSIS<small>NEURO · MARKETING · IA</small></span></a>
+        <p>Marketing que piensa como tu cliente. Estrategias, landings y campañas con IA y neurociencia.</p>
+      </div>
+      <nav class="foot-links" aria-label="Secundaria">
+        <div><h4>Producto</h4><ul><li><a href="#features">Funciones</a></li><li><a href="#ia">IA real</a></li><li><a href="#faq">Preguntas</a></li></ul></div>
+        <div><h4>Cuenta</h4><ul><li><a href="#/auth">Entrar</a></li><li><a href="#/auth?tab=register">Crear cuenta</a></li><li><a href="#/app">Panel demo</a></li></ul></div>
+        <div><h4>Legal</h4><ul><li><a href="#/privacidad">Privacidad</a></li><li><a href="#/privacidad">Términos</a></li><li><a href="#/privacidad">Cookies</a></li><li><a href="https://github.com/tu-usuario/sinapsis" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year">2026</span> SINAPSIS · Código abierto (MIT)</span>
+      <span>0 rastreadores por defecto · 1 archivo · 0 dependencias</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Banner de cookies (sin rastreadores hasta consentir... y aun así, esta demo no carga ninguno) -->
+<div class="cookies" id="cookies" role="dialog" aria-label="Aviso de cookies" aria-live="polite">
+  <p><b style="color:var(--text)">Usamos pocas cookies, y te lo decimos.</b><br>Solo las necesarias para la sesión. La analítica y el marketing únicamente se activan con tu permiso. <a class="link" href="#/privacidad">Ver aviso</a></p>
+  <div class="row"><button class="btn btn-primary btn-sm" id="ckOk" type="button">Aceptar</button><button class="btn btn-ghost btn-sm" id="ckNo" type="button">Solo necesarias</button></div>
+</div>
+
+<div id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(s,c){return (c||document).querySelector(s)};
+var $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+
+/* ---------- toasts ---------- */
+function toast(msg,isErr){
+  var box=$("#toasts"),t=document.createElement("div");
+  t.className="toast"+(isErr?" err":"");t.textContent=msg;box.appendChild(t);
+  setTimeout(function(){t.classList.add("out");setTimeout(function(){t.remove()},350)},3400);
+}
+
+/* ---------- router (hash) ---------- */
+var TITLES={"/":"SINAPSIS | Marketing que piensa como tu cliente","/auth":"Entrar o crear cuenta | SINAPSIS","/app":"Mi panel | SINAPSIS","/privacidad":"Aviso de privacidad | SINAPSIS"};
+function session(){try{return JSON.parse(localStorage.getItem("sinapsis_session")||"null")}catch(e){return null}}
+function route(){
+  var h=location.hash||"#/";
+  if(h.charAt(1)!=="/"){return} // ancla interna (#features...) → scroll nativo
+  var path=h.slice(1).split("?")[0];
+  var query=h.indexOf("?")>-1?h.split("?")[1]:"";
+  if(path==="/app"&&!session()){toast("Entra o crea tu cuenta para ver el panel demo.",true);location.hash="#/auth";return}
+  var map={"/":"view-home","/auth":"view-auth","/app":"view-app","/privacidad":"view-privacy"};
+  var id=map[path]||"view-home";
+  $$(".view").forEach(function(v){v.classList.toggle("active",v.id===id)});
+  document.title=TITLES[path]||TITLES["/"];
+  $("#footer").style.display=(path==="/app")?"none":"";
+  $("#menuBtn").setAttribute("aria-expanded","false");$("#navLinks").classList.remove("open");
+  if(path==="/auth"&&query.indexOf("tab=register")>-1){setTab("register")}
+  if(id==="view-app"){renderApp()}
+  window.scrollTo({top:0,behavior:"instant" in window?"instant":"auto"});
+  requestAnimationFrame(observeReveals);
+}
+window.addEventListener("hashchange",route);
+
+/* ---------- header + menú móvil ---------- */
+var header=$("#header");
+window.addEventListener("scroll",function(){header.classList.toggle("scrolled",window.scrollY>10)},{passive:true});
+$("#menuBtn").addEventListener("click",function(){
+  var open=$("#navLinks").classList.toggle("open");
+  this.setAttribute("aria-expanded",open?"true":"false");
+  this.setAttribute("aria-label",open?"Cerrar menú":"Abrir menú");
+});
+$("#year").textContent=new Date().getFullYear();
+
+/* ---------- reveal on scroll ---------- */
+var io=("IntersectionObserver" in window)?new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible");io.unobserve(e.target)}});
+},{threshold:.12}):null;
+function observeReveals(){$$(".view.active .reveal:not(.visible)").forEach(function(el){io?io.observe(el):el.classList.add("visible")})}
+
+/* ---------- cookies ---------- */
+var ckBox=$("#cookies");
+try{
+  if(!localStorage.getItem("sinapsis_cookies")){setTimeout(function(){ckBox.classList.add("show")},900)}
+}catch(e){ckBox.classList.add("show")}
+function ckChoice(v){try{localStorage.setItem("sinapsis_cookies",v)}catch(e){}ckBox.classList.remove("show");toast(v==="all"?"Preferencias guardadas. (Demo: no se cargó ningún rastreador).":"Solo cookies necesarias. Buena elección.")}
+$("#ckOk").addEventListener("click",function(){ckChoice("all")});
+$("#ckNo").addEventListener("click",function(){ckChoice("needed")});
+
+/* ---------- auth demo ---------- */
+function setTab(which){
+  var isLogin=which!=="register";
+  $("#tabLogin").setAttribute("aria-selected",isLogin?"true":"false");
+  $("#tabRegister").setAttribute("aria-selected",isLogin?"false":"true");
+  $("#formLogin").hidden=!isLogin;$("#formRegister").hidden=isLogin;
+}
+$("#tabLogin").addEventListener("click",function(){setTab("login")});
+$("#tabRegister").addEventListener("click",function(){setTab("register")});
+
+$$(".pass-toggle").forEach(function(btn){
+  btn.addEventListener("click",function(){
+    var input=document.getElementById(btn.getAttribute("data-for"));
+    var show=input.type==="password";
+    input.type=show?"text":"password";
+    btn.setAttribute("aria-label",show?"Ocultar contraseña":"Mostrar contraseña");
+    btn.innerHTML='<svg width="20" height="20" aria-hidden="true"><use href="#'+(show?"i-eyeoff":"i-eye")+'"/></svg>';
+    input.focus();
+  });
+});
+
+/* medidor de seguridad */
+var regPass=$("#regPass"),strBar=$("#strBar"),strLbl=$("#strLbl");
+var STR_LBL=["Seguridad: —","Seguridad: débil","Seguridad: media","Seguridad: buena","Seguridad: excelente"];
+var STR_COL=["#ff6b7a","#ff6b7a","#ffc857","#3ee6c4","#3ee6c4"];
+regPass.addEventListener("input",function(){
+  var v=regPass.value,score=0;
+  if(v.length>=8)score++;if(v.length>=12)score++;
+  if(/[A-ZÁÉÍÓÚÑ]/.test(v)&&/[a-záéíóúñ]/.test(v))score++;
+  if(/\d/.test(v))score++;if(/[^A-Za-z0-9áéíóúñÁÉÍÓÚÑ ]/.test(v))score++;
+  score=Math.min(4,Math.max(v?1:0,score>4?4:score));
+  if(!v)score=0;
+  strBar.style.width=(score*25)+"%";strBar.style.background=STR_COL[score];strLbl.textContent=STR_LBL[score];
+});
+
+function validEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)}
+function mark(id,ok){document.getElementById(id).classList.toggle("invalid",!ok);return ok}
+function fakeLoad(btn,label,done){
+  var orig=btn.innerHTML;btn.disabled=true;btn.innerHTML='<span class="spinner" aria-hidden="true"></span> '+label;
+  setTimeout(function(){btn.disabled=false;btn.innerHTML=orig;done()},1000);
+}
+function startSession(name,email){
+  try{localStorage.setItem("sinapsis_session",JSON.stringify({name:name,email:email,ts:Date.now()}))}catch(e){}
+  location.hash="#/app";toast("¡Hola, "+name.split(" ")[0]+"! Bienvenido a tu panel demo.");
+}
+$("#formLogin").addEventListener("submit",function(e){
+  e.preventDefault();
+  var em=$("#loginEmail").value.trim(),pw=$("#loginPass").value;
+  var ok=mark("f-login-email",validEmail(em))&mark("f-login-pass",pw.length>=8);
+  if(!ok){toast("Revisa los campos marcados.",true);return}
+  fakeLoad($("#loginBtn"),"Entrando…",function(){
+    var name=em.split("@")[0].replace(/[._-]+/g," ").replace(/\b\w/g,function(c){return c.toUpperCase()});
+    startSession(name,em);
+  });
+});
+$("#formRegister").addEventListener("submit",function(e){
+  e.preventDefault();
+  var nm=$("#regName").value.trim(),em=$("#regEmail").value.trim(),pw=$("#regPass").value;
+  var ok=mark("f-reg-name",nm.length>=2)&mark("f-reg-email",validEmail(em))&mark("f-reg-pass",pw.length>=8);
+  if(!$("#terms").checked){toast("Acepta los términos y el aviso de privacidad.",true);return}
+  if(!ok){toast("Revisa los campos marcados.",true);return}
+  fakeLoad($("#regBtn"),"Creando cuenta…",function(){startSession(nm,em)});
+});
+$("#demoBtn").addEventListener("click",function(){
+  $("#loginEmail").value="demo@sinapsis.mx";$("#loginPass").value="Demo1234*";setTab("login");
+  fakeLoad(this,"Entrando…",function(){startSession("Usuario Demo","demo@sinapsis.mx")});
+});
+$("#forgotLink").addEventListener("click",function(e){
+  e.preventDefault();
+  var em=$("#loginEmail").value.trim();
+  toast(em&&validEmail(em)?"Demo: te enviamos un enlace a "+em+" (simulado).":"Escribe tu correo arriba y pulsa el enlace de nuevo.");
+});
+
+/* ---------- analizador REAL de sitios ---------- */
+function esc(s){return String(s==null?"":s).replace(/[<>&"]/g,function(c){return{"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c]})}
+var PROXIES=[
+  {name:"AllOrigins",base:"https://api.allorigins.win/raw?url="},
+  {name:"CorsProxy",base:"https://corsproxy.io/?url="},
+  {name:"CodeTabs",base:"https://api.codetabs.com/v1/proxy?quest="}
+];
+var CTA_WORDS=["compr","contact","whatsapp","agenda","agendar","cotiz","reserv","llama","lláma","pedir","pide","ordena","prueba gratis","empezar","comenzar","regístr","registr","suscr","descarga","quiero","solicita","contrata","únete","unete","más info","mas info","obten","obtén","hablemos","escríb","escrib"];
+var TRUST_WORDS=["testimonio","clientes","casos de éxito","casos de exito","reseña","resena","opiniones","garantía","garantia","años de experiencia","anos de experiencia","certific","premio","reconocimiento","+500","+1000","miles de"];
+var BENEFIT_WORDS=["ahorra","gratis","garantiz","aumenta","incrementa","mejora","resultados","rápido","rapido","fácil","facil","sin riesgo","más clientes","mas clientes","ventas","crece","potencia","impulsa","transforma","descubre","aprende","domina","consigue","logra","obtén","obten","duplica","triplica","automatiza"];
+function normalizeUrl(v){
+  v=(v||"").trim().replace(/^<|>$/g,"");
+  if(!v)return null;
+  if(!/^https?:\/\//i.test(v))v="https://"+v;
+  try{var u=new URL(v);if(u.protocol!=="http:"&&u.protocol!=="https:")return null;return u.toString()}
+  catch(e){return null}
+}
+function fetchT(url,ms,opts){
+  var c=new AbortController(),t=setTimeout(function(){c.abort()},ms||12000);
+  var o=opts||{};o.signal=c.signal;
+  return fetch(url,o).then(function(r){clearTimeout(t);return r},function(e){clearTimeout(t);throw e});
+}
+function azSetStatus(t){var el=$("#azStatus");el.hidden=!t;if(t)el.textContent=t}
+function azBusy(on){$("#analyzeBtn").disabled=on;$("#exampleBtn").disabled=on;$("#azProgress").hidden=!on;if(!on)azSetStatus("")}
+function downloadSite(url,onStep){
+  var i=0,t0=(window.performance?performance.now():Date.now());
+  function attempt(){
+    if(i>=PROXIES.length){var e=new Error("all-failed");e.tried=i;throw e}
+    var p=PROXIES[i++];
+    onStep("Conectando vía "+p.name+" ("+i+"/"+PROXIES.length+")…");
+    return fetchT(p.base+encodeURIComponent(url),12000).then(function(r){
+      if(!r.ok)throw new Error("http");
+      return r.text();
+    }).then(function(html){
+      if(!html||html.length<400)throw new Error("empty");
+      var t1=(window.performance?performance.now():Date.now());
+      return {html:html,proxy:p.name,ms:Math.round(t1-t0)};
+    }).catch(function(){return attempt()});
+  }
+  return attempt();
+}
+function extractSite(html,url){
+  var doc;try{doc=new DOMParser().parseFromString(html,"text/html")}catch(e){return null}
+  if(!doc||!doc.body)return null;
+  var q=function(s){return doc.querySelector(s)},qa=function(s){return Array.prototype.slice.call(doc.querySelectorAll(s))};
+  var clean=function(s){return (s||"").replace(/\s+/g," ").trim()};
+  function meta(n){var m=q('meta[name="'+n+'"]');return m?clean(m.getAttribute("content")):""}
+  function metaP(p){var m=q('meta[property="'+p+'"]');return m?clean(m.getAttribute("content")):""}
+  var title=clean(q("title")&&q("title").textContent);
+  var desc=meta("description"),lang=(doc.documentElement.getAttribute("lang")||"").toLowerCase();
+  var h1s=qa("h1").map(function(h){return clean(h.textContent)}).filter(Boolean);
+  var h2s=qa("h2").map(function(h){return clean(h.textContent)}).filter(Boolean);
+  var bc=doc.body.cloneNode(true);
+  ["script","style","noscript","template","svg","iframe"].forEach(function(t){Array.prototype.slice.call(bc.querySelectorAll(t)).forEach(function(n){n.remove()})});
+  var bodyText=clean(bc.textContent);
+  var words=bodyText?bodyText.split(" ").filter(Boolean).length:0;
+  var links=qa("a[href]");
+  var LL=links.map(function(a){return{t:((a.textContent||"")+" "+(a.getAttribute("aria-label")||"")+" "+(a.getAttribute("title")||"")).toLowerCase().replace(/\s+/g," ").trim(),h:(a.getAttribute("href")||"").toLowerCase()}});
+  function isCTA(t){if(t.length<2||t.length>90)return false;return CTA_WORDS.some(function(w){return t.indexOf(w)>-1})}
+  var ctas=LL.filter(function(l){return isCTA(l.t)}).map(function(l){return l.t.slice(0,42)});
+  var seen={},ctaList=[];ctas.forEach(function(c){if(!seen[c]){seen[c]=1;ctaList.push(c)}});
+  function hasH(s){return LL.some(function(l){return l.h.indexOf(s)>-1})}
+  var wa=hasH("wa.me")||hasH("whatsapp"),tel=hasH("tel:"),mail=hasH("mailto:");
+  var forms=qa("form").length;
+  var emailInput=qa("input").some(function(i){var t=((i.getAttribute("type")||"")+" "+(i.getAttribute("name")||"")+" "+(i.getAttribute("id")||"")+" "+(i.getAttribute("placeholder")||"")).toLowerCase();return t.indexOf("email")>-1||t.indexOf("correo")>-1||t.indexOf("e-mail")>-1});
+  var socialDefs=[["Facebook","facebook.com"],["Instagram","instagram.com"],["TikTok","tiktok.com"],["LinkedIn","linkedin.com"],["YouTube","youtube.com"],["X","x.com"]];
+  var socials=socialDefs.filter(function(s){return hasH(s[1])}).map(function(s){return s[0]});
+  var aboutLink=hasH("nosotros")||hasH("nosotras")||hasH("quienes")||hasH("about")||hasH("empresa")||hasH("conocenos")||hasH("conócenos");
+  var low=bodyText.toLowerCase();
+  var trustHits=TRUST_WORDS.filter(function(w){return low.indexOf(w)>-1});
+  var headTxt=(h1s.join(" ")+" "+h2s.slice(0,6).join(" ")).toLowerCase();
+  var benefitHits=BENEFIT_WORDS.filter(function(w){return headTxt.indexOf(w)>-1});
+  var imgs=qa("img"),withAlt=imgs.filter(function(i){return clean(i.getAttribute("alt")).length>1}).length;
+  var og={t:metaP("og:title"),img:metaP("og:image"),site:metaP("og:site_name")};
+  var H=html.toLowerCase(),tech=[];
+  if(H.indexOf("wp-content")>-1||/wordpress/i.test(meta("generator")))tech.push("WordPress");
+  if(H.indexOf("shopify")>-1)tech.push("Shopify");
+  if(H.indexOf("tiendanube")>-1)tech.push("Tiendanube");
+  if(H.indexOf("wixstatic")>-1||H.indexOf("wix.com")>-1)tech.push("Wix");
+  if(H.indexOf("webflow")>-1)tech.push("Webflow");
+  if(H.indexOf("squarespace")>-1)tech.push("Squarespace");
+  if(H.indexOf("elementor")>-1)tech.push("Elementor");
+  if(H.indexOf("hubspot")>-1)tech.push("HubSpot");
+  if(H.indexOf("vtex")>-1)tech.push("VTEX");
+  if(H.indexOf("woocommerce")>-1)tech.push("WooCommerce");
+  if(H.indexOf("prestashop")>-1)tech.push("PrestaShop");
+  if(H.indexOf("googletagmanager")>-1||H.indexOf("google-analytics")>-1)tech.push("Google Analytics");
+  if(H.indexOf("fbevents")>-1||H.indexOf("connect.facebook.net")>-1)tech.push("Meta Pixel");
+  if(H.indexOf("tiktok")>-1&&H.indexOf("tiktok.com")>-1)tech.push("TikTok Pixel");
+  return{title:title,desc:desc,lang:lang,h1s:h1s,h2s:h2s,words:words,totalLinks:links.length,ctaList:ctaList,ctaCount:ctaList.length,wa:wa,tel:tel,mail:mail,forms:forms,emailInput:emailInput,socials:socials,aboutLink:aboutLink,trustHits:trustHits,benefitHits:benefitHits,imgs:imgs.length,withAlt:withAlt,scripts:qa("script[src]").length,og:og,tech:tech,kb:Math.round(html.length/1024),https:url.indexOf("https://")===0};
+}
+function scoreSite(d){
+  var checks=[];
+  function C(area,label,pass,detail,fix,short,prio){checks.push({area:area,label:label,pass:!!pass,detail:detail,fix:fix,short:short,prio:prio||"media"})}
+  var altPct=d.imgs?Math.round(d.withAlt/d.imgs*100):0;
+  C("mensaje","Título claro",d.title.length>=10&&d.title.length<=70,d.title?("“"+d.title.slice(0,80)+"” ("+d.title.length+" car.)"):"Sin título","Reescribe el título a 30-60 caracteres con beneficio + marca. Ej: “Clínica dental familiar en CDMX | Agenda hoy”.","título fuera de rango",d.title?"media":"alta");
+  C("mensaje","Un H1 contundente",d.h1s.length===1&&d.h1s[0].length>=15,d.h1s.length?("H1: “"+d.h1s[0].slice(0,90)+"” ("+d.h1s.length+" H1)"):"Sin H1","Usa UN solo H1 visible con el resultado que vendes, no tu nombre. Ej: “Sonríe sin pena en 3 visitas”.","H1 ausente o débil","alta");
+  C("mensaje","Descripción que vende",d.desc.length>=50&&d.desc.length<=170,d.desc?("“"+d.desc.slice(0,100)+"…”"):"Sin meta description","Agrega meta description de 70-160 caracteres con beneficio + llamado a la acción.","descripción ausente/débil","media");
+  C("mensaje","Titulares con beneficio",d.benefitHits.length>0,d.benefitHits.length?("Detectado: "+d.benefitHits.slice(0,3).join(", ")):"Sin palabras de beneficio","Incluye palabras como gratis, rápido, garantizado o más clientes en tus titulares.","titulares sin beneficio","media");
+  C("confianza","Prueba social",d.trustHits.length>=1,d.trustHits.length?("Menciones: "+d.trustHits.slice(0,4).join(", ")):"Sin señales","Agrega testimonios con nombre + foto, casos con números y garantía por escrito arriba del sitio.","falta prueba social","alta");
+  C("confianza","Redes sociales",d.socials.length>0,d.socials.length?d.socials.join(", "):"Sin enlaces sociales","Enlaza Instagram/Facebook/TikTok: la mayoría verifica redes antes de comprar.","sin redes enlazadas","media");
+  C("confianza","Contacto visible",d.tel||d.mail||d.wa,"Tel: "+(d.tel?"sí":"no")+" · Email: "+(d.mail?"sí":"no")+" · WA: "+(d.wa?"sí":"no"),"Pon teléfono clicable + WhatsApp con mensaje prellenado en el encabezado.","contacto poco visible",(!d.tel&&!d.mail&&!d.wa)?"alta":"media");
+  C("confianza","Quiénes somos",d.aboutLink,d.aboutLink?"Página de empresa detectada":"Sin página de empresa","Crea “Nosotros” con historia + fotos reales: humaniza y sube conversión.","falta página nosotros","media");
+  C("conversion","Llamados a la acción",d.ctaCount>=3,d.ctaCount+" CTAs"+(d.ctaList.length?(": "+d.ctaList.slice(0,3).join(" · ")):""),"Repite tu CTA cada pantalla: “Agenda por WhatsApp” debe acompañar al visitante.","pocos CTAs","alta");
+  C("conversion","Botón de WhatsApp",d.wa,d.wa?"Detectado":"No detectado","Agrega wa.me/tu-numero?text=Hola… como botón flotante: es el canal #1 en México.","sin WhatsApp","alta");
+  C("conversion","Captura de datos",d.forms>0||d.emailInput,d.forms+" formularios · email: "+(d.emailInput?"sí":"no"),"Agrega un formulario corto (nombre + WhatsApp) a cambio de un diagnóstico gratis.","sin captura de leads","media");
+  C("conversion","Llamada con 1 clic",d.tel,d.tel?"Enlace tel: detectado":"Sin enlace tel:","En móvil, un botón “Llamar ahora” (tel:) convierte visitas en llamadas.","sin botón llamar","media");
+  C("seo","Título SEO 30-60",d.title.length>=30&&d.title.length<=60,d.title.length+" caracteres","Ajusta el título a 30-60 caracteres con palabra clave + ciudad.","título SEO mejorable","media");
+  C("seo","H1 único",d.h1s.length===1,d.h1s.length+" H1 en la página","Deja un solo H1 por página para no confundir a Google.","H1 duplicado/ausente","media");
+  C("seo","Imágenes con ALT",d.imgs>0&&altPct>=60,d.imgs?(d.withAlt+"/"+d.imgs+" con ALT ("+altPct+"%)"):"Sin imágenes","Describe cada imagen en su ALT: ayuda a Google y a la accesibilidad.","imágenes sin ALT","media");
+  C("seo","Open Graph",!!(d.og.t&&d.og.img),d.og.t?"og:title + og:image OK":"Incompleto","Configura og:title, og:description e og:image para verte profesional en WhatsApp.","Open Graph incompleto","media");
+  var areas=["mensaje","confianza","conversion","seo"],scores={},recs=[],wins=[];
+  areas.forEach(function(a){var cs=checks.filter(function(c){return c.area===a});scores[a]=Math.round(cs.filter(function(c){return c.pass}).length/cs.length*100)});
+  checks.forEach(function(c){(c.pass?wins:recs).push(c)});
+  recs.sort(function(a,b){return(a.prio==="alta"?0:1)-(b.prio==="alta"?0:1)});
+  return{checks:checks,scores:scores,recs:recs,wins:wins.slice(0,3),total:Math.round((scores.mensaje+scores.confianza+scores.conversion+scores.seo)/4)};
+}
+var AREA_LBL={mensaje:"Mensaje",confianza:"Confianza",conversion:"Conversión",seo:"SEO técnico"};
+function cleanBizName(d,host){
+  if(d.og.site)return d.og.site;
+  if(d.title){var t=d.title.split(/[|–—:·-]/)[0].trim();if(t.length>=3&&t.length<=50)return t}
+  return host.replace(/^www\./,"");
+}
+function renderReport(url,d,s,info){
+  var box=$("#azResult"),host="";
+  try{host=new URL(url).hostname}catch(e){host=url}
+  var business=cleanBizName(d,host);
+  var offering=(d.h1s[0]||d.desc||business).replace(/\s+/g," ").trim().slice(0,70);
+  var CIRC=213.6,off=(CIRC*(1-s.total/100)).toFixed(1);
+  var col=s.total>=70?"#3ee6c4":s.total>=50?"#ffc857":"#ff6b7a";
+  var grade=s.total>=85?["EXCELENTE","#3ee6c4"]:s.total>=70?["BIEN","#3ee6c4"]:s.total>=50?["MEJORABLE","#ffc857"]:["CRÍTICO","#ff6b7a"];
+  var areasHtml=["mensaje","confianza","conversion","seo"].map(function(a){
+    return '<div class="area-row"><span>'+AREA_LBL[a]+'</span><span class="bar"><i data-w="'+s.scores[a]+'"></i></span><b>'+s.scores[a]+'%</b></div>';
+  }).join("");
+  var recsHtml=s.recs.length?s.recs.slice(0,8).map(function(r){
+    return '<li><span class="prio '+r.prio+'">'+r.prio.toUpperCase()+'</span><span><b>'+esc(r.label)+'.</b> '+esc(r.fix)+'</span></li>';
+  }).join(""):'<li><span class="prio media">OK</span><span><b>Sin fallas.</b> Este sitio pasa los 16 chequeos. Aun así, prueba la estrategia para escalar.</span></li>';
+  function F(k,v){return '<li><span class="k">'+k+'</span>'+v+'</li>'}
+  var winsHtml=s.wins.length?'<li><span class="k">Fortalezas detectadas</span><b>'+s.wins.map(function(w){return esc(w.label)}).join(" · ")+'</b></li>':"";
+  var findHtml=winsHtml+
+    F("Título",esc(d.title||"—"))+
+    F("H1 principal",esc(d.h1s[0]||"—")+(d.h1s.length>1?" <b>("+d.h1s.length+" H1)</b>":""))+
+    F("Contenido",esc(d.words)+" palabras · "+esc(d.totalLinks)+" enlaces · "+esc(d.forms)+" formularios")+
+    F("CTAs detectados",d.ctaList.length?esc(d.ctaList.slice(0,4).join(" · ")):"—")+
+    F("Contacto","WhatsApp "+(d.wa?"<b>sí</b>":"no")+" · Tel "+(d.tel?"<b>sí</b>":"no")+" · Email "+(d.mail?"<b>sí</b>":"no"))+
+    F("Tecnología",d.tech.length?esc(d.tech.join(" · ")):"No detectada")+
+    F("Seguridad / peso",(d.https?"<b>HTTPS ✓</b>":"HTTP")+" · "+esc(d.kb)+" KB HTML · "+esc(info.ms)+" ms vía "+esc(info.proxy));
+  box.innerHTML=
+    '<div class="az-grid"><div class="az-score">'+
+    '<svg class="ring" viewBox="0 0 84 84" role="img" aria-label="Calificación '+s.total+' de 100"><circle class="bg" cx="42" cy="42" r="34"/><circle class="fg" cx="42" cy="42" r="34" stroke="'+col+'" stroke-dasharray="'+CIRC+'" stroke-dashoffset="'+CIRC+'" data-off="'+off+'"/></svg>'+
+    '<div class="ring-num">'+s.total+'</div>'+
+    '<span class="az-grade" style="background:'+grade[1]+'22;color:'+grade[1]+';border:1px solid '+grade[1]+'66">'+grade[0]+'</span>'+
+    '<div class="az-site"><img src="https://www.google.com/s2/favicons?domain='+esc(host)+'&sz=64" alt="" onerror="this.style.display=\'none\'"><span>'+esc(host)+'</span></div>'+
+    '<div class="az-meta"><span>Negocio detectado: <b>'+esc(business)+'</b></span><span>Chequeos pasados: <b>'+s.checks.filter(function(c){return c.pass}).length+'/16</b></span></div>'+
+    '</div><div class="az-areas">'+areasHtml+'</div></div>'+
+    '<div class="az-cols"><div><h4>Recomendaciones prioritarias</h4><ul class="rec-list">'+recsHtml+'</ul></div>'+
+    '<div><h4>Lo que encontramos</h4><ul class="find-list">'+findHtml+'</ul></div></div>'+
+    '<div class="az-actions"><button class="btn btn-primary" id="useSiteBtn" type="button"><svg aria-hidden="true"><use href="#i-spark"/></svg> Generar estrategia con estos datos</button></div>';
+  box.hidden=false;
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+    var fg=box.querySelector(".fg");if(fg)fg.setAttribute("stroke-dashoffset",fg.getAttribute("data-off"));
+    Array.prototype.slice.call(box.querySelectorAll("[data-w]")).forEach(function(b){b.style.width=b.getAttribute("data-w")+"%"});
+  })});
+  window.__site={business:business,offering:offering,recs:s.recs,total:s.total,
+    trustHint:d.trustHits.length?("refuerza tus menciones de "+d.trustHits.slice(0,2).join(" y ")):("testimonios con nombre, foto y resultado medible")};
+  $("#useSiteBtn").addEventListener("click",function(){
+    $("#bizInput").value=business+" — "+offering.slice(0,60);
+    $("#genBtn").click();
+    document.getElementById("genBtn").scrollIntoView({behavior:"smooth",block:"center"});
+  });
+  box.scrollIntoView({behavior:"smooth",block:"nearest"});
+  toast("Análisis completo: "+s.total+"/100 ("+grade[0].toLowerCase()+").");
+}
+function runAnalysis(url){
+  azBusy(true);$("#azResult").hidden=true;
+  azSetStatus("Descargando el sitio…");
+  downloadSite(url,azSetStatus).then(function(res){
+    azSetStatus("Leyendo contenido y calificando…");
+    setTimeout(function(){
+      var d=extractSite(res.html,url);
+      azBusy(false);
+      if(!d){toast("No pudimos leer ese sitio (respuesta inválida).",true);azSetStatus("");return}
+      renderReport(url,d,scoreSite(d),{proxy:res.proxy,ms:res.ms});
+    },350);
+  }).catch(function(){
+    azBusy(false);
+    toast("No pudimos descargar ese sitio. Revisa el link o prueba “Ver ejemplo”.",true);
+    azSetStatus("Sin conexión al sitio: el servidor pudo bloquear la descarga, o estás en la vista previa sin internet. El botón “Ver ejemplo” funciona sin conexión.");
+  });
+}
+$("#analyzeBtn").addEventListener("click",function(){
+  var url=normalizeUrl($("#siteUrl").value);
+  if(!url){toast("Escribe un link válido, ej: tusitio.com",true);$("#siteUrl").focus();return}
+  $("#siteUrl").value=url;runAnalysis(url);
+});
+$("#siteUrl").addEventListener("keydown",function(e){if(e.key==="Enter")$("#analyzeBtn").click()});
+/* ejemplo local (funciona sin internet, ideal para la vista previa) */
+var EXAMPLE_URL="https://clinicadental-sonria.mx/";
+var EXAMPLE_HTML='<!doctype html><html lang="es"><head><title>Clínica Sonría</title><meta name="generator" content="WordPress"><script src="https://www.googletagmanager.com/gtag/js"><\/script></head><body><header><nav><a href="/">Inicio</a><a href="/nosotros">Nosotros</a><a href="https://facebook.com/clinicasonria">Facebook</a><a href="tel:+525500000000">Llama ahora</a></nav></header><h1>Bienvenidos a Clínica Sonría</h1><h1>Ofertas del mes</h1><p>Somos una clínica dental con más de 10 años de experiencia ofreciendo servicios de limpieza, ortodoncia e implantes dentales para toda la familia. Contamos con equipo moderno y precios accesibles en la Ciudad de México.</p><p><a href="/contacto">Contáctanos</a> para agendar tu primera cita de valoración. También puedes <a href="/agenda">agendar tu cita</a> en línea de forma rápida y sencilla.</p><img src="a.jpg"><img src="b.jpg" alt="Consultorio moderno"><img src="c.jpg"><form><input name="nombre" placeholder="Tu nombre"><input name="telefono" placeholder="Teléfono"><button>Enviar</button></form><footer><p>© Clínica Sonría 2026</p></footer></body></html>';
+$("#exampleBtn").addEventListener("click",function(){
+  azBusy(true);$("#azResult").hidden=true;azSetStatus("Analizando sitio de ejemplo (local, sin internet)…");
+  setTimeout(function(){
+    azBusy(false);
+    var d=extractSite(EXAMPLE_HTML,EXAMPLE_URL);
+    renderReport(EXAMPLE_URL,d,scoreSite(d),{proxy:"local",ms:4});
+  },900);
+});
+
+/* ---------- app demo ---------- */
+function renderApp(){
+  var s=session();if(!s)return;
+  var h=new Date().getHours(),sal=h<12?"Buenos días":h<20?"Buenas tardes":"Buenas noches";
+  $("#appGreet").textContent=sal+", "+s.name.split(" ")[0]+" 👋";
+  $("#appEmail").textContent=s.email;
+  $("#appAvatar").textContent=(s.name.trim()[0]||"?").toUpperCase();
+  $("#appDate").textContent=new Date().toLocaleDateString("es-MX",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+  renderProjects();
+}
+$("#logoutBtn").addEventListener("click",function(){
+  try{localStorage.removeItem("sinapsis_session")}catch(e){}
+  location.hash="#/";toast("Sesión cerrada. ¡Vuelve pronto!");
+});
+/* generador de estrategia (usa datos reales del analizador cuando existen) */
+function buildStrategy(biz){
+  var site=window.__site||null,L=[];
+  if(site&&site.recs){
+    var gaps=site.recs.slice(0,3).map(function(r){return r.short}).join(" · ");
+    L.push("<b>Posicionamiento para "+esc(site.business)+":</b> tu web hoy califica "+site.total+"/100. El freno principal: "+esc(gaps)+". Ataca eso primero y cada visita valdrá más.");
+    L.push("<b>Mensaje principal sugerido:</b> “"+esc(site.offering)+" — agenda hoy por WhatsApp”. Titular = beneficio + siguiente paso en una sola línea.");
+    L.push("<b>Prueba social:</b> "+esc(site.trustHint)+", colocada antes del primer scroll en tu página principal.");
+    L.push("<b>Plan 7 días:</b> día 1-2 reescribe titulares y CTAs · día 3-4 sube prueba social y contacto visible · día 5 publica captura con WhatsApp · día 6-7 lanza Meta Ads ($200 MXN/día) al mensaje ganador.");
+  }else{
+    L.push("<b>Posicionamiento:</b> “"+esc(biz)+"” — la opción que se siente hecha a tu medida, no una más del montón.");
+    L.push("<b>Mensaje principal:</b> habla del resultado que tu cliente sueña, no de tus características.");
+    L.push("<b>Oferta gancho:</b> “"+esc(biz)+"” — primera sesión/diagnóstico con riesgo cero + garantía clara por escrito.");
+    L.push("<b>Canales:</b> 1) Landing + WhatsApp, 2) Meta Ads a 10 km, 3) 3 posts/semana con prueba social.");
+    L.push("<b>Tip:</b> analiza primero el sitio real arriba y esta estrategia se personalizará con sus datos.");
+  }
+  return L;
+}
+$("#genBtn").addEventListener("click",function(){
+  var biz=$("#bizInput").value.trim()||((window.__site&&window.__site.business)||"Tu negocio");
+  var steps=$$("#genSteps li"),res=$("#genResult"),btn=this;
+  btn.disabled=true;res.classList.remove("show");
+  steps.forEach(function(li){li.classList.remove("doing","done");li.querySelector(".st").textContent=+li.dataset.s+1});
+  var i=0;
+  (function next(){
+    if(i>0){steps[i-1].classList.remove("doing");steps[i-1].classList.add("done");steps[i-1].querySelector(".st").textContent="✓"}
+    if(i>=steps.length){
+      var tag=(window.__site&&window.__site.business)?"basada en tu sitio real":"demo";
+      res.innerHTML="<b>Estrategia "+tag+" para: "+esc(biz)+"</b><br><br>"+buildStrategy(biz).map(function(g){return "• "+g}).join("<br>");
+      res.classList.add("show");btn.disabled=false;toast("Estrategia lista ("+tag+").");return;
+    }
+    steps[i].classList.add("doing");i++;setTimeout(next,650);
+  })();
+});
+/* proyectos demo */
+function getProjects(){try{return JSON.parse(localStorage.getItem("sinapsis_projects")||'["Clínica dental Roma","Inmobiliaria Tulum"]')}catch(e){return[]}}
+function saveProjects(p){try{localStorage.setItem("sinapsis_projects",JSON.stringify(p))}catch(e){}}
+function renderProjects(){
+  var ul=$("#projList");ul.innerHTML="";
+  var ps=getProjects();
+  if(!ps.length){ul.innerHTML='<li style="justify-content:center;color:var(--muted2)">Sin proyectos aún. Crea el primero ↓</li>';return}
+  ps.forEach(function(p){
+    var li=document.createElement("li");
+    li.innerHTML='<span class="dotp"></span><span></span><small>demo</small>';
+    li.querySelector("span:nth-child(2)").textContent=p;ul.appendChild(li);
+  });
+}
+function addProject(){
+  var inp=$("#projInput"),v=inp.value.trim();
+  if(!v){toast("Escribe un nombre para el proyecto.",true);return}
+  var ps=getProjects();ps.unshift(v);saveProjects(ps);inp.value="";renderProjects();toast("Proyecto creado (demo local).");
+}
+$("#projAdd").addEventListener("click",addProject);
+$("#projInput").addEventListener("keydown",function(e){if(e.key==="Enter")addProject()});
+
+/* ---------- IA real (BYOK: Gemini + Claude + Higgsfield) ---------- */
+var AI_DEFAULTS={gemModel:"gemini-3.8-flash",clModel:"claude-sonnet-5-5",hfModel:"bytedance/seedance-2.0/text-to-video"};
+function aiGet(){
+  var d={provider:"gemini",gemKey:"",gemModel:AI_DEFAULTS.gemModel,clKey:"",clModel:AI_DEFAULTS.clModel,hfId:"",hfSecret:"",hfModel:AI_DEFAULTS.hfModel};
+  try{var sv=JSON.parse(localStorage.getItem("sinapsis_ai")||"{}");for(var k in d){if(sv[k]!==undefined&&sv[k]!=="")d[k]=sv[k]}}catch(e){}
+  return d;
+}
+function aiSave(d){try{localStorage.setItem("sinapsis_ai",JSON.stringify(d))}catch(e){}}
+function aiProvLabel(){
+  var d=aiGet(),has=d.provider==="gemini"?d.gemKey:d.clKey,el=$("#aiProvLbl");
+  if(el){el.textContent=has?d.provider:"modo local";el.classList.toggle("on",!!has)}
+}
+function aiHydrate(){
+  var d=aiGet();
+  var r=document.querySelector('input[name="aiProv"][value="'+d.provider+'"]');if(r)r.checked=true;
+  $("#gemKey").value=d.gemKey;$("#gemModel").value=d.gemModel;
+  $("#clKey").value=d.clKey;$("#clModel").value=d.clModel;
+  $("#hfId").value=d.hfId;$("#hfSecret").value=d.hfSecret;$("#hfModel").value=d.hfModel;
+  aiProvLabel();
+}
+$$('input[name="aiProv"]').forEach(function(r){
+  r.addEventListener("change",function(){var d=aiGet();d.provider=r.value;aiSave(d);aiProvLabel();$("#aiStatus").textContent="Proveedor activo: "+r.value+"."});
+});
+$("#aiSaveBtn").addEventListener("click",function(){
+  var p=(document.querySelector('input[name="aiProv"]:checked')||{}).value||"gemini";
+  aiSave({provider:p,gemKey:$("#gemKey").value.trim(),gemModel:$("#gemModel").value.trim()||AI_DEFAULTS.gemModel,
+    clKey:$("#clKey").value.trim(),clModel:$("#clModel").value.trim()||AI_DEFAULTS.clModel,
+    hfId:$("#hfId").value.trim(),hfSecret:$("#hfSecret").value.trim(),hfModel:$("#hfModel").value.trim()||AI_DEFAULTS.hfModel});
+  aiProvLabel();$("#aiStatus").textContent="Llaves guardadas solo en este navegador.";
+  toast("Llaves guardadas localmente.");
+});
+$("#aiClearBtn").addEventListener("click",function(){
+  try{localStorage.removeItem("sinapsis_ai")}catch(e){}
+  aiHydrate();$("#aiStatus").textContent="Llaves borradas de este navegador.";
+  toast("Llaves borradas.");
+});
+/* mini-markdown para respuestas de la IA */
+function mdLite(src){
+  var lines=String(src||"").replace(/\r/g,"").split("\n"),html="",inUl=false,inOl=false;
+  function inline(t){
+    t=esc(t);
+    t=t.replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>");
+    t=t.replace(/`([^`]+)`/g,"<code>$1</code>");
+    return t;
+  }
+  function close(){if(inUl){html+="</ul>";inUl=false}if(inOl){html+="</ol>";inOl=false}}
+  for(var i=0;i<lines.length;i++){
+    var t=lines[i].replace(/^\s+|\s+$/g,"");
+    if(/^###\s+/.test(t)){close();html+="<h4>"+inline(t.replace(/^###\s+/,""))+"</h4>"}
+    else if(/^##\s+/.test(t)){close();html+="<h3>"+inline(t.replace(/^##\s+/,""))+"</h3>"}
+    else if(/^#\s+/.test(t)){close();html+="<h3>"+inline(t.replace(/^#\s+/,""))+"</h3>"}
+    else if(/^[-*]\s+/.test(t)){if(inOl)close();if(!inUl){html+="<ul>";inUl=true}html+="<li>"+inline(t.replace(/^[-*]\s+/,""))+"</li>"}
+    else if(/^\d+[.)]\s+/.test(t)){if(inUl)close();if(!inOl){html+="<ol>";inOl=true}html+="<li>"+inline(t.replace(/^\d+[.)]\s+/,""))+"</li>"}
+    else if(!t){close()}
+    else{close();html+="<p>"+inline(t)+"</p>"}
+  }
+  close();return html||"<p>Sin contenido.</p>";
+}
+function buildAiPrompt(){
+  var site=window.__site||null;
+  var biz=$("#bizInput").value.trim()||(site&&site.business)||"mi negocio";
+  var ctx="Negocio: "+biz+".\n";
+  if(site&&site.recs){
+    ctx+="Sitio analizado: "+site.business+" ("+(site.offering||"sin descripción")+") — calificación "+site.total+"/100.\n";
+    ctx+="Problemas detectados: "+site.recs.slice(0,6).map(function(r){return r.label+" ("+r.fix+")"}).join(" | ")+"\n";
+  }
+  return "Eres un consultor senior de marketing neuro-persuasivo para PyMEs mexicanas. Contexto:\n"+ctx+"\nEscribe en español, directo y sin humo, una estrategia accionable con estas secciones exactas (usa ## para títulos y viñetas con -):\n## Posicionamiento\n## Mensaje principal (propón 1 titular H1 mejorado entre comillas)\n## Oferta irresistible\n## Plan de 7 días\nMáximo 350 palabras. Cierra con una línea 'Quick win #1:' y la acción más rentable.";
+}
+function callGemini(prompt){
+  var d=aiGet();
+  return fetchT("https://generativelanguage.googleapis.com/v1beta/models/"+encodeURIComponent(d.gemModel)+":generateContent",60000,{
+    method:"POST",headers:{"Content-Type":"application/json","x-goog-api-key":d.gemKey},
+    body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.7,maxOutputTokens:2048}})
+  }).then(function(r){return r.json().then(function(j){return{ok:r.ok,st:r.status,j:j}})})
+  .then(function(res){
+    if(!res.ok)throw new Error("Gemini "+res.st+": "+(((res.j||{}).error||{}).message||"error"));
+    var cands=(res.j.candidates||[])[0]||{},parts=(cands.content||{}).parts||[];
+    var txt=parts.map(function(x){return x.text||""}).join("");
+    if(!txt)throw new Error("Gemini devolvió respuesta vacía.");
+    return txt;
+  });
+}
+function callClaude(prompt){
+  var d=aiGet();
+  return fetchT("https://api.anthropic.com/v1/messages",60000,{
+    method:"POST",
+    headers:{"Content-Type":"application/json","x-api-key":d.clKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+    body:JSON.stringify({model:d.clModel,max_tokens:2048,messages:[{role:"user",content:prompt}]})
+  }).then(function(r){return r.json().then(function(j){return{ok:r.ok,st:r.status,j:j}})})
+  .then(function(res){
+    if(!res.ok)throw new Error("Claude "+res.st+": "+(((res.j||{}).error||{}).message||"error"));
+    var txt=((res.j.content||[]).filter(function(b){return b.type==="text"}).map(function(b){return b.text||""})).join("");
+    if(!txt)throw new Error("Claude devolvió respuesta vacía.");
+    return txt;
+  });
+}
+function aiErr(e,prov){
+  var m=String((e&&e.message)||e);
+  if(e&&e.name==="AbortError")return "Se agotó el tiempo de espera (60s). Intenta de nuevo.";
+  if(/Failed to fetch|NetworkError|Load failed/i.test(m))return "El navegador bloqueó la petición (red o CORS). Revisa tu conexión e inténtalo fuera de la vista previa.";
+  if(/401|API key not valid|invalid x-api-key|authentication|unauthorized/i.test(m))return "Llave inválida ("+prov+"). Revísala en tu consola, pégala de nuevo y pulsa Guardar.";
+  if(/404|not[ _-]?found|model/i.test(m))return "Modelo no encontrado en "+prov+". Verifica el nombre del modelo en la configuración.";
+  if(/429|quota|rate.?limit|overloaded/i.test(m))return "Límite de uso alcanzado en "+prov+". Espera unos minutos o revisa tu cuota.";
+  return m.slice(0,200);
+}
+$("#aiTestBtn").addEventListener("click",function(){
+  var d=aiGet(),prov=d.provider,key=prov==="gemini"?d.gemKey:d.clKey,btn=this;
+  if(!key){toast("Pega primero tu llave de "+prov+".",true);return}
+  btn.disabled=true;$("#aiStatus").textContent="Probando "+prov+"…";
+  (prov==="gemini"?callGemini("Responde exactamente: OK"):callClaude("Responde exactamente: OK")).then(
+    function(txt){btn.disabled=false;$("#aiStatus").textContent=prov+" conectado ("+txt.trim().slice(0,40)+").";toast(prov+" conectado.");},
+    function(e){btn.disabled=false;$("#aiStatus").textContent="Error: "+aiErr(e,prov);toast("Error: "+aiErr(e,prov),true);}
+  );
+});
+function aiNeedKey(prov){
+  toast("Pega tu llave de "+prov+" en la sección IA real.",true);
+  var p=$("#aiPanel");p.scrollIntoView({behavior:"smooth",block:"center"});
+  p.classList.remove("ai-flash");void p.offsetWidth;p.classList.add("ai-flash");
+}
+$("#genAiBtn").addEventListener("click",function(){
+  var d=aiGet(),prov=d.provider,key=prov==="gemini"?d.gemKey:d.clKey;
+  if(!key){aiNeedKey(prov);return}
+  var btn=this,genBtn=$("#genBtn"),res=$("#genResult"),steps=$$("#genSteps li");
+  btn.disabled=true;genBtn.disabled=true;res.classList.remove("show");
+  steps.forEach(function(li){li.classList.remove("doing","done");li.querySelector(".st").textContent=+li.dataset.s+1});
+  steps[0].classList.add("doing");if(steps[1])steps[1].classList.add("doing");
+  res.innerHTML="<b>Consultando a "+esc(prov)+"…</b><br>Redactando tu estrategia con IA real. Tarda unos 10-20 segundos.";
+  res.classList.add("show");
+  (prov==="gemini"?callGemini(buildAiPrompt()):callClaude(buildAiPrompt())).then(
+    function(txt){
+      steps.forEach(function(li){li.classList.remove("doing");li.classList.add("done");li.querySelector(".st").textContent="✓"});
+      res.innerHTML="<b>Estrategia con IA real ("+esc(prov)+")</b><div class='md'>"+mdLite(txt)+"</div>";
+      btn.disabled=false;genBtn.disabled=false;toast("Estrategia generada con "+prov+".");
+    },
+    function(e){
+      steps.forEach(function(li){li.classList.remove("doing")});
+      res.innerHTML="<b>No se pudo generar.</b><br>"+esc(aiErr(e,prov));
+      btn.disabled=false;genBtn.disabled=false;toast("Error de IA.",true);
+    }
+  );
+});
+/* ---------- Higgsfield: video promo ---------- */
+function hfAuth(){var d=aiGet();return "Key "+d.hfId+":"+d.hfSecret}
+function hfPersist(){var d=aiGet();d.hfId=$("#hfId").value.trim();d.hfSecret=$("#hfSecret").value.trim();var m=$("#hfModel").value.trim();if(m)d.hfModel=m;aiSave(d);return aiGet()}
+function findMedia(o){try{var m=JSON.stringify(o).match(/https?:[^"\\ ]+\.(mp4|mov|webm)(\?[^"\\ ]*)?/i);return m?m[0]:null}catch(e){return null}}
+$("#hfFillBtn").addEventListener("click",function(){
+  var site=window.__site,ta=$("#hfPrompt");
+  if(site&&site.business){ta.value="Cinematic promotional video for "+site.business+": happy customers, bright modern business, warm light, dynamic camera moves, premium feel";toast("Prompt creado con datos de tu sitio.")}
+  else{var b=$("#bizInput").value.trim();if(b){ta.value="Cinematic promotional video for "+b+": happy customers, bright modern business, warm light, dynamic camera moves";toast("Prompt creado.")}else{toast("Primero analiza un sitio o describe tu negocio.",true)}}
+});
+$("#hfGenBtn").addEventListener("click",function(){
+  var d=hfPersist();
+  if(!d.hfId||!d.hfSecret){toast("Pega tu Key ID y Secret de Higgsfield.",true);$("#hfId").focus();return}
+  var prompt=$("#hfPrompt").value.trim();
+  if(prompt.length<10){toast("Describe tu video con más detalle (mínimo 10 caracteres).",true);$("#hfPrompt").focus();return}
+  var btn=this;btn.disabled=true;$("#hfProgress").hidden=false;$("#hfResult").hidden=true;
+  function setSt(t){$("#hfStatus").textContent=t}
+  setSt("Enviando a Higgsfield…");
+  var body={prompt:prompt,resolution:"720p",generate_audio:true,duration:5,aspect_ratio:$("#hfAspect").value};
+  fetchT("https://api.higgsfield.ai/"+d.hfModel.replace(/^\/*/,""),30000,{method:"POST",
+    headers:{"Content-Type":"application/json","Authorization":hfAuth(),"Idempotency-Key":"sn"+Date.now()},
+    body:JSON.stringify(body)})
+  .then(function(r){return r.text().then(function(t){var j=null;try{j=JSON.parse(t)}catch(e){}return{ok:r.ok,st:r.status,j:j,raw:t}})})
+  .then(function(res){
+    if(!res.ok)throw new Error("Higgsfield "+res.st+": "+(res.raw||"error").slice(0,160));
+    var reqId=res.j&&res.j.request_id,statusUrl=res.j&&res.j.status_url;
+    if(!reqId||!statusUrl)throw new Error("Respuesta inesperada de Higgsfield.");
+    setSt("En cola (#"+String(reqId).slice(0,8)+")… el video tarda unos minutos en generarse.");
+    var tries=0;
+    (function poll(){
+      tries++;
+      fetchT(statusUrl,30000,{headers:{"Authorization":hfAuth()}})
+      .then(function(r){return r.json()})
+      .then(function(st){
+        var s=String((st&&st.status)||"").toLowerCase();
+        if(s==="completed"){
+          var url=(st.video&&st.video.url)||findMedia(st);
+          $("#hfProgress").hidden=true;btn.disabled=false;
+          if(url){
+            $("#hfResult").innerHTML='<video controls playsinline preload="metadata" src="'+esc(url)+'"></video><div class="az-actions"><a class="btn btn-ghost btn-sm" href="'+esc(url)+'" target="_blank" rel="noopener">Abrir / descargar video</a></div>';
+            $("#hfResult").hidden=false;setSt("Video listo.");toast("Tu video está listo.");
+          }else{setSt("Completado pero sin URL de video legible.");toast("Completado sin URL legible.",true)}
+        }else if(s==="failed"||s==="nsfw"||s==="canceled"){
+          $("#hfProgress").hidden=true;btn.disabled=false;
+          setSt("Resultado: "+s+(st.error?(" — "+JSON.stringify(st.error).slice(0,120)):""));
+          toast("Higgsfield: "+s,true);
+        }else{
+          setSt("Estado: "+s+" ("+tries+")… sigue generando, no cierres esta pestaña.");
+          if(tries>=72){$("#hfProgress").hidden=true;btn.disabled=false;setSt("Llevamos 6 min. Revisa tu consola de Higgsfield con el ID: "+reqId);return}
+          setTimeout(poll,5000);
+        }
+      },function(){
+        if(tries<72){setSt("Reintentando consulta de estado ("+tries+")…");setTimeout(poll,8000)}
+        else{$("#hfProgress").hidden=true;btn.disabled=false;setSt("Sin respuesta del estado. Revisa tu consola con el ID: "+reqId)}
+      });
+    })();
+  },function(e){
+    $("#hfProgress").hidden=true;btn.disabled=false;
+    var m=String((e&&e.message)||e);
+    if(/Failed to fetch|NetworkError|Load failed/i.test(m)){setSt("El navegador bloqueó la petición.");toast("Posible bloqueo CORS: Higgsfield está pensada para servidor. Prueba el endpoint con curl (ver README).",true)}
+    else{setSt("Error: "+m.slice(0,160));toast("Error Higgsfield.",true)}
+  });
+});
+
+/* ---------- init ---------- */
+route();observeReveals();aiHydrate();
+})();
+</script>
+</body>
+</html>

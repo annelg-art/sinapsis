@@ -1,0 +1,16 @@
+# Cabeceras de seguridad para producción (SINAPSIS · open source MIT).
+# Funciona en Cloudflare Pages y Netlify tal cual.
+# En Vercel, traduce esto a vercel.json (ver README).
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: no-referrer
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data: https://www.google.com; media-src 'self' blob: https:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://api.allorigins.win https://corsproxy.io https://api.codetabs.com https://generativelanguage.googleapis.com https://api.anthropic.com https://api.higgsfield.ai; upgrade-insecure-requests
+  Cross-Origin-Opener-Policy: same-origin
+# Notas:
+# - 'unsafe-inline' existe porque es single-file. Al separar CSS/JS, usa nonces/hashes.
+# - connect-src: solo los 3 proxies CORS del analizador + las 3 APIs de IA (BYOK).
+#   El navegador SOLO llama a esas URLs cuando TÚ pulsas Analizar / IA real / Generar video.
+# - media-src permite reproducir el video generado por Higgsfield (viene de su CDN).
